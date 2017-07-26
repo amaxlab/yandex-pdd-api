@@ -1,0 +1,31 @@
+{
+  "name": "amaxlab/yandex-pdd-api",
+  "description": "Client for yandex pdd api",
+  "keywords": [ "php", "yandex", "pdd", "api"],
+  "homepage": "https://github.com/amaxlab/yandex-pdd-api",
+  "license": "MIT",
+  "type": "library",
+  "require": {
+    "php": ">=5.4"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^4.7"
+  },
+  "autoload": {
+    "psr-4": {"AmaxLab\\YandexPddApi\\": "src"}
+  },
+  "autoload-dev": {
+    "psr-4": {"AmaxLab\\YandexPddApi\\Tests\\": "tests"}
+  },
+  "extra": {
+    "branch-alias": {
+      "dev-master": "0.1.x-dev"
+    }
+  },
+  "authors": [
+    {
+      "name": "Egor Zyuskin",
+      "email": "ezyuskin@amaxlab.ru"
+    }
+  ]
+}
