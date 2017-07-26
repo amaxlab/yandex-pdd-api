@@ -11,21 +11,25 @@
 
 namespace AmaxLab\YandexPddApi\Manager;
 
+use AmaxLab\YandexPddApi\Request\GetDomainsListRequest;
+use AmaxLab\YandexPddApi\Response\GetDomainsResponse;
+
 /**
  * @author Egor Zyuskin <ezyuskin@amaxlab.ru>
  */
-class DomainManager
+class DomainManager extends AbstractManager
 {
     /**
-     * @var string
+     * @return GetDomainsResponse|object
      */
-    private $token;
-
-    /**
-     * @param string $token
-     */
-    public function __construct($token)
+    public function getDomainList()
     {
-        $this->token = $token;
+        $response = $this->request((new GetDomainsListRequest()));
+
+        $mapper = new \JsonMapper();
+        $mapper->bIgnoreVisibility = true;
+        $response = $mapper->map($response->getJson(), new GetDomainsResponse());
+
+        return $response;
     }
 }

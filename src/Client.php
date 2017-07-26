@@ -24,16 +24,30 @@ class Client
     private $token;
 
     /**
+     * @var bool
+     */
+    private $isRegistrar;
+
+    /**
+     * @var string
+     */
+    private $registrarOAuthToken;
+
+    /**
      * @var DomainManager
      */
     private $domainManager;
 
     /**
      * @param string $token
+     * @param bool $isRegistrar
+     * @param string $registrarOAuthToken
      */
-    public function __construct($token)
+    public function __construct($token, $isRegistrar = false, $registrarOAuthToken = '')
     {
         $this->token = $token;
+        $this->isRegistrar = $isRegistrar;
+        $this->registrarOAuthToken = $registrarOAuthToken;
     }
 
     /**
@@ -42,7 +56,7 @@ class Client
     public function getDomainManager()
     {
         if (!$this->domainManager) {
-            $this->domainManager = new DomainManager($this->token);
+            $this->domainManager = new DomainManager($this->token, $this->isRegistrar, $this->registrarOAuthToken);
         }
 
         return $this->domainManager;
