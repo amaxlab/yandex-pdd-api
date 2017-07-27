@@ -11,9 +11,11 @@
 
 namespace AmaxLab\YandexPddApi\Manager;
 
+use AmaxLab\YandexPddApi\Request\GetDomainSettingRequest;
 use AmaxLab\YandexPddApi\Request\GetDomainsListRequest;
 use AmaxLab\YandexPddApi\Request\GetRegistrationStatusDomainRequest;
 use AmaxLab\YandexPddApi\Request\RegisterDomainRequest;
+use AmaxLab\YandexPddApi\Response\GetDomainSettingsResponse;
 use AmaxLab\YandexPddApi\Response\GetDomainsListResponse;
 use AmaxLab\YandexPddApi\Response\GetRegistrationStatusDomainsResponse;
 use AmaxLab\YandexPddApi\Response\RegisterDomainResponse;
@@ -49,5 +51,15 @@ class DomainManager extends AbstractManager
     public function getRegistrationStatusDomain($domainName)
     {
         return $this->request(new GetRegistrationStatusDomainRequest($domainName), 'AmaxLab\YandexPddApi\Response\GetRegistrationStatusDomainsResponse');
+    }
+
+    /**
+     * @param string $domainName
+     *
+     * @return GetDomainSettingsResponse|object
+     */
+    public function getDomainSettings($domainName)
+    {
+        return $this->request(new GetDomainSettingRequest($domainName), 'AmaxLab\YandexPddApi\Response\GetDomainSettingsResponse');
     }
 }

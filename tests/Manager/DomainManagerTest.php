@@ -55,12 +55,12 @@ class DomainManagerTest extends \PHPUnit_Framework_TestCase
     public function testRegisterDomain()
     {
         $curl = $this->mock('AmaxLab\YandexPddApi\Curl\CurlClientInterface')
-            ->request((new CurlResponse(200, '{"status": "domain-activate", "secrets": {"content": "c6ccecffb250", "name": "bbc1fc0d7a3a"}, "domain": "test.ru", "success": "ok", "stage": "owner-check"}')))
+            ->request((new CurlResponse(200, '{"status": "domain-activate", "secrets": {"content": "c6ccecffb250", "name": "bbc1fc0d7a3a"}, "domain": "test.com", "success": "ok", "stage": "owner-check"}')))
             ->new()
         ;
 
-        $response = (new DomainManager(''))->setCurl($curl)->registerDomain('test.ru');
-        $this->assertEquals('test.ru', $response->getDomain());
+        $response = (new DomainManager(''))->setCurl($curl)->registerDomain('test.com');
+        $this->assertEquals('test.com', $response->getDomain());
         $this->assertEquals('domain-activate', $response->getStatus());
         $this->assertEquals('owner-check', $response->getStage());
         $this->assertEquals('c6ccecffb250', $response->getSecrets()->getContent());
@@ -70,14 +70,38 @@ class DomainManagerTest extends \PHPUnit_Framework_TestCase
     public function testGetRegistrationStatusDomain()
     {
         $curl = $this->mock('AmaxLab\YandexPddApi\Curl\CurlClientInterface')
-            ->request((new CurlResponse(200, '{"status": "domain-activate", "domain": "test.ru", "success": "ok", "secrets": {"content": "a4f9aace399d", "name": "ea1aebbbf7c0"}, "last_check": "2017-07-27T17:48:43Z", "next_check": "2017-07-27T17:59:00Z", "check_results": "no cname, no file", "stage": "owner-check"}')))
+            ->request((new CurlResponse(200, '{"status": "domain-activate", "domain": "test.com", "success": "ok", "secrets": {"content": "a4f9aace399d", "name": "ea1aebbbf7c0"}, "last_check": "2017-07-27T17:48:43Z", "next_check": "2017-07-27T17:59:00Z", "check_results": "no cname, no file", "stage": "owner-check"}')))
             ->new()
         ;
 
-        $response = (new DomainManager(''))->setCurl($curl)->getRegistrationStatusDomain('test.ru');
+        $response = (new DomainManager(''))->setCurl($curl)->getRegistrationStatusDomain('test.com');
         $this->assertEquals(new \DateTime('2017-07-27T17:48:43Z'), $response->getLastCheck());
         $this->assertEquals(new \DateTime('2017-07-27T17:59:00Z'), $response->getNextCheck());
         $this->assertEquals('no cname, no file', $response->getCheckResults());
+    }
 
+    public function testGetDomainSettings()
+    {
+        $curl = $this->mock('AmaxLab\YandexPddApi\Curl\CurlClientInterface')
+            ->request((new CurlResponse(200, '{"status": "added", "from_registrar": "no", "imap_enabled": 1, "success": "ok", "default_theme": "", "country": "ru", "ws_technical": "no", "can_users_change_password": "yes", "domain": "test.com", "default_uid": 0, "master_admin": "yes", "roster_enabled": "yes", "pop_enabled": 1, "delegated": "no", "logo_url": "http//logo.url", "stage": "added"}')))
+            ->new()
+        ;
+
+        $response = (new DomainManager(''))->setCurl($curl)->getDomainSettings('test.com');
+        $this->assertEquals('added', $response->getStatus());
+        $this->assertEquals('no', $response->getFromRegistrar());
+        $this->assertEquals(true, $response->isImapEnabled());
+        $this->assertEquals('', $response->getDefaultTheme());
+        $this->assertEquals('ru', $response->getCountry());
+        $this->assertEquals('no', $response->getWsTechnical());
+        $this->assertEquals('yes', $response->getCanUsersChangePassword());
+        $this->assertEquals('test.com', $response->getDomain());
+        $this->assertEquals(0, $response->getDefaultUid());
+        $this->assertEquals('yes', $response->getMasterAdmin());
+        $this->assertEquals('yes', $response->getRosterEnabled());
+        $this->assertEquals(true, $response->isPopEnabled());
+        $this->assertEquals('no', $response->getDelegated());
+        $this->assertEquals('http//logo.url', $response->getLogoUrl());
+        $this->assertEquals('added', $response->getStage());
     }
 }
