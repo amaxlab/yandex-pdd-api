@@ -23,6 +23,36 @@ class CurlClient implements CurlClientInterface
     const METHOD_PUT = 'PUT';
 
     /**
+     * @var resource
+     */
+    private $resource;
+
+    /**
+     * @var bool
+     */
+    private $verbose;
+
+    /**
+     * @param bool $verbose
+     */
+    public function __construct($verbose = false)
+    {
+        $this->verbose = $verbose;
+        $this->resource = curl_init();
+
+        curl_setopt($this->resource, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($this->resource, CURLOPT_VERBOSE, $verbose);
+    }
+
+    /**
+     * @return void
+     */
+    public function __destruct()
+    {
+        curl_close($this->resource);
+    }
+
+    /**
      * @param string $method
      * @param string $url
      * @param array $params
@@ -32,25 +62,18 @@ class CurlClient implements CurlClientInterface
      */
     public function request($method, $url, $params, $headers = [])
     {
-        $options = [
-            CURLOPT_URL => $url,
-            CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_HTTPHEADER => $headers,
-        ];
+        curl_setopt($this->resource, CURLOPT_URL, $url);
+        curl_setopt($this->resource, CURLOPT_HTTPHEADER, $headers);
+        curl_setopt($this->resource, CURLOPT_POST, false);
 
         if ($method != self::METHOD_GET) {
-            $options = array_merge($options, [
-                CURLOPT_POST => true,
-                CURLOPT_POSTFIELDS => $params,
-                CURLOPT_CUSTOMREQUEST => $method,
-            ]);
+            curl_setopt($this->resource, CURLOPT_POST, true);
+            curl_setopt($this->resource, CURLOPT_POSTFIELDS, $params);
+            curl_setopt($this->resource, CURLOPT_CUSTOMREQUEST, $method);
         }
 
-        $curl = curl_init();
-        curl_setopt_array($curl, $options);
-        $result = curl_exec($curl);
-        $response = new CurlResponse(curl_getinfo($curl, CURLINFO_HTTP_CODE), $result);
-        curl_close($curl);
+        $result = curl_exec($this->resource);
+        $response = new CurlResponse(curl_getinfo($this->resource, CURLINFO_HTTP_CODE), $result);
 
         return $response;
     }
