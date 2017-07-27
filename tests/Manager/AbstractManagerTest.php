@@ -31,7 +31,7 @@ class AbstractManagerTest extends \PHPUnit_Framework_TestCase
             ->new()
         ;
 
-        (new DomainManager(''))->request($request);
+        (new DomainManager(''))->request($request, '');
     }
 
     public function testRequestParamsValidationThrow()
@@ -42,7 +42,7 @@ class AbstractManagerTest extends \PHPUnit_Framework_TestCase
             ->new()
         ;
 
-        (new DomainManager(''))->request($request);
+        (new DomainManager(''))->request($request, '');
     }
 
     public function testResponseStatusCodeValidationThrow()
@@ -53,7 +53,7 @@ class AbstractManagerTest extends \PHPUnit_Framework_TestCase
             ->new()
         ;
 
-        (new DomainManager(''))->setCurl($curl)->request(new GetDomainsListRequest());
+        (new DomainManager(''))->setCurl($curl)->request(new GetDomainsListRequest(), '');
     }
 
     public function testResponseJsonValidationThrow()
@@ -64,7 +64,7 @@ class AbstractManagerTest extends \PHPUnit_Framework_TestCase
             ->new()
         ;
 
-        (new DomainManager(''))->setCurl($curl)->request(new GetDomainsListRequest());
+        (new DomainManager(''))->setCurl($curl)->request(new GetDomainsListRequest(), '');
     }
 
     public function testYandexResponseErrorValidationThrow()
@@ -75,6 +75,6 @@ class AbstractManagerTest extends \PHPUnit_Framework_TestCase
             ->new()
         ;
 
-        (new DomainManager(''))->setCurl($curl)->request(new GetDomainsListRequest());
+        (new DomainManager(''))->setCurl($curl)->request(new GetDomainsListRequest(), '');
     }
 }

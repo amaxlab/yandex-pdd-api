@@ -14,7 +14,7 @@ namespace AmaxLab\YandexPddApi\Response;
 /**
  * @author Egor Zyuskin <ezyuskin@amaxlab.ru>
  */
-class GetDomainsResponse extends AbstractPaginationResponse
+class GetDomainsListResponse extends AbstractPaginationResponse
 {
     /**
      * @var \AmaxLab\YandexPddApi\Model\DomainModel[]

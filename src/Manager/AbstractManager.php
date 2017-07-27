@@ -19,6 +19,8 @@ use AmaxLab\YandexPddApi\Exception\ResponseValidationException;
 use AmaxLab\YandexPddApi\Exception\YandexResponseValidationException;
 use AmaxLab\YandexPddApi\Request\RequestInterface;
 use AmaxLab\YandexPddApi\Response\AbstractResponse;
+use AmaxLab\YandexPddApi\Response\ResponseInterface;
+use JsonMapper;
 
 /**
  * @author Egor Zyuskin <ezyuskin@amaxlab.ru>
@@ -59,6 +61,11 @@ abstract class AbstractManager
     private $curl;
 
     /**
+     * @var JsonMapper
+     */
+    private $mapper;
+
+    /**
      * @param string $token
      * @param bool $isRegistrar
      * @param string $registrarOAuthToken
@@ -66,6 +73,8 @@ abstract class AbstractManager
     public function __construct($token, $isRegistrar = false, $registrarOAuthToken = '')
     {
         $this->curl = new CurlClient();
+        $this->mapper = new JsonMapper();
+
         $this->token = $token;
         $this->isRegistrar = $isRegistrar;
         $this->registrarOAuthToken = $registrarOAuthToken;
@@ -73,10 +82,11 @@ abstract class AbstractManager
 
     /**
      * @param RequestInterface $request
+     * @param string $responseClassName
      *
-     * @return CurlResponse
+     * @return ResponseInterface|object
      */
-    public function request(RequestInterface $request)
+    public function request(RequestInterface $request, $responseClassName)
     {
         $this->validateRequest($request);
 
@@ -84,7 +94,7 @@ abstract class AbstractManager
 
         $this->validateResponse($response);
 
-        return $response;
+        return $this->mapper->map($response->getJson(), new $responseClassName);
     }
 
     /**

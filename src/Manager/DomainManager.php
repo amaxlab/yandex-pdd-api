@@ -12,7 +12,7 @@
 namespace AmaxLab\YandexPddApi\Manager;
 
 use AmaxLab\YandexPddApi\Request\GetDomainsListRequest;
-use AmaxLab\YandexPddApi\Response\GetDomainsResponse;
+use AmaxLab\YandexPddApi\Response\GetDomainsListResponse;
 
 /**
  * @author Egor Zyuskin <ezyuskin@amaxlab.ru>
@@ -20,12 +20,10 @@ use AmaxLab\YandexPddApi\Response\GetDomainsResponse;
 class DomainManager extends AbstractManager
 {
     /**
-     * @return GetDomainsResponse|object
+     * @return GetDomainsListResponse|object
      */
     public function getDomainList()
     {
-        $this->request((new GetDomainsListRequest()));
-
-        return null;
+        return $this->request((new GetDomainsListRequest()), 'AmaxLab\YandexPddApi\Response\GetDomainsListResponse');
     }
 }

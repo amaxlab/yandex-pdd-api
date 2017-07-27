@@ -11,13 +11,27 @@
 
 namespace AmaxLab\YandexPddApi\Tests\Manager;
 
+use AmaxLab\YandexPddApi\Curl\CurlResponse;
+use AmaxLab\YandexPddApi\Manager\DomainManager;
+use AmaxLab\YandexPddApi\Response\GetDomainsListResponse;
+use Xpmock\TestCaseTrait;
+
 /**
  * @author Egor Zyuskin <ezyuskin@amaxlab.ru>
  */
 class DomainManagerTest extends \PHPUnit_Framework_TestCase
 {
+    use TestCaseTrait;
+
     public function testGetDomainsList()
     {
-        $this->assertEquals(true, true);
+        $curl = $this->mock('AmaxLab\YandexPddApi\Curl\CurlClientInterface')
+            ->request((new CurlResponse(200, '{"success":"ok"}')))
+            ->new()
+        ;
+
+        $domainList = (new DomainManager(''))->setCurl($curl)->getDomainList();
+
+        $this->assertEquals(true, $domainList instanceof GetDomainsListResponse);
     }
 }
