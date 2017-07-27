@@ -23,7 +23,7 @@ class CurlClientTest extends \PHPUnit_Framework_TestCase
     {
         $client = new CurlClient();
 
-        $this->assertEquals(true, $client->request('GET', 'http://example.com', []) instanceof CurlResponse);
-        $this->assertEquals(true, $client->request('POST', 'http://example.com', []) instanceof CurlResponse);
+        $this->assertEquals(true, $client->request('GET', 'http://localhost', []) instanceof CurlResponse);
+        $this->assertEquals(true, $client->request('POST', 'http://localhost', []) instanceof CurlResponse);
     }
 }

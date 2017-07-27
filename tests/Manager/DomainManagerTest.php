@@ -51,4 +51,20 @@ class DomainManagerTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(1, count($aliases));
         $this->assertEquals('test2.com', $aliases[0]);
     }
+
+    public function testRegisterDomain()
+    {
+        $curl = $this->mock('AmaxLab\YandexPddApi\Curl\CurlClientInterface')
+            ->request((new CurlResponse(200, '{"status": "domain-activate", "secrets": {"content": "c6ccecffb250", "name": "bbc1fc0d7a3a"}, "domain": "test.ru", "success": "ok", "stage": "owner-check"}')))
+            ->new()
+        ;
+
+        $response = (new DomainManager(''))->setCurl($curl)->registerDomain('test.ru');
+        $this->assertEquals('test.ru', $response->getDomain());
+        $this->assertEquals('domain-activate', $response->getStatus());
+        $this->assertEquals('owner-check', $response->getStage());
+        $this->assertEquals('c6ccecffb250', $response->getSecrets()->getContent());
+        $this->assertEquals('bbc1fc0d7a3a', $response->getSecrets()->getName());
+
+    }
 }

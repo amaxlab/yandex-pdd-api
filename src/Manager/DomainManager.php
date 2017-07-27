@@ -12,7 +12,9 @@
 namespace AmaxLab\YandexPddApi\Manager;
 
 use AmaxLab\YandexPddApi\Request\GetDomainsListRequest;
+use AmaxLab\YandexPddApi\Request\RegisterDomainRequest;
 use AmaxLab\YandexPddApi\Response\GetDomainsListResponse;
+use AmaxLab\YandexPddApi\Response\RegisterDomainResponse;
 
 /**
  * @author Egor Zyuskin <ezyuskin@amaxlab.ru>
@@ -24,6 +26,16 @@ class DomainManager extends AbstractManager
      */
     public function getDomainList()
     {
-        return $this->request((new GetDomainsListRequest()), 'AmaxLab\YandexPddApi\Response\GetDomainsListResponse');
+        return $this->request(new GetDomainsListRequest(), 'AmaxLab\YandexPddApi\Response\GetDomainsListResponse');
+    }
+
+    /**
+     * @param string $domainName
+     *
+     * @return RegisterDomainResponse|object
+     */
+    public function registerDomain($domainName)
+    {
+        return $this->request(new RegisterDomainRequest($domainName), 'AmaxLab\YandexPddApi\Response\RegisterDomainResponse');
     }
 }
