@@ -65,6 +65,19 @@ class DomainManagerTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('owner-check', $response->getStage());
         $this->assertEquals('c6ccecffb250', $response->getSecrets()->getContent());
         $this->assertEquals('bbc1fc0d7a3a', $response->getSecrets()->getName());
+    }
+
+    public function testGetRegistrationStatusDomain()
+    {
+        $curl = $this->mock('AmaxLab\YandexPddApi\Curl\CurlClientInterface')
+            ->request((new CurlResponse(200, '{"status": "domain-activate", "domain": "test.ru", "success": "ok", "secrets": {"content": "a4f9aace399d", "name": "ea1aebbbf7c0"}, "last_check": "2017-07-27T17:48:43Z", "next_check": "2017-07-27T17:59:00Z", "check_results": "no cname, no file", "stage": "owner-check"}')))
+            ->new()
+        ;
+
+        $response = (new DomainManager(''))->setCurl($curl)->getRegistrationStatusDomain('test.ru');
+        $this->assertEquals(new \DateTime('2017-07-27T17:48:43Z'), $response->getLastCheck());
+        $this->assertEquals(new \DateTime('2017-07-27T17:59:00Z'), $response->getNextCheck());
+        $this->assertEquals('no cname, no file', $response->getCheckResults());
 
     }
 }
