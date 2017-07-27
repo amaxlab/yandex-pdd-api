@@ -28,16 +28,10 @@ class CurlClient implements CurlClientInterface
     private $resource;
 
     /**
-     * @var bool
-     */
-    private $verbose;
-
-    /**
      * @param bool $verbose
      */
     public function __construct($verbose = false)
     {
-        $this->verbose = $verbose;
         $this->resource = curl_init();
 
         curl_setopt($this->resource, CURLOPT_RETURNTRANSFER, true);
