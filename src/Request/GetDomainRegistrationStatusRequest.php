@@ -16,7 +16,7 @@ use AmaxLab\YandexPddApi\Curl\CurlClient;
 /**
  * @author Egor Zyuskin <ezyuskin@amaxlab.ru>
  */
-class GetRegistrationStatusDomainRequest extends RegisterDomainRequest
+class GetDomainRegistrationStatusRequest extends RegisterDomainRequest
 {
     /**
      * @return string

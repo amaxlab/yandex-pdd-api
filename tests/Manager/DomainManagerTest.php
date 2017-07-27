@@ -67,7 +67,7 @@ class DomainManagerTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('bbc1fc0d7a3a', $response->getSecrets()->getName());
     }
 
-    public function testGetRegistrationStatusDomain()
+    public function testGetDomainRegistrationStatus()
     {
         $curl = $this->mock('AmaxLab\YandexPddApi\Curl\CurlClientInterface')
             ->request((new CurlResponse(200, '{"status": "domain-activate", "domain": "test.com", "success": "ok", "secrets": {"content": "a4f9aace399d", "name": "ea1aebbbf7c0"}, "last_check": "2017-07-27T17:48:43Z", "next_check": "2017-07-27T17:59:00Z", "check_results": "no cname, no file", "stage": "owner-check"}')))

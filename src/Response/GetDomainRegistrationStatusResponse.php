@@ -14,7 +14,7 @@ namespace AmaxLab\YandexPddApi\Response;
 /**
  * @author Egor Zyuskin <ezyuskin@amaxlab.ru>
  */
-class GetRegistrationStatusDomainsResponse extends RegisterDomainResponse
+class GetDomainRegistrationStatusResponse extends RegisterDomainResponse
 {
     /**
      * @var \DateTime
