@@ -57,6 +57,21 @@ class DomainModel
     private $nsdelegated;
 
     /**
+     * @var int
+     */
+    private $emailsMaxCount;
+
+    /**
+     * @var int
+     */
+    private $emailsCount;
+
+    /**
+     * @var bool
+     */
+    private $dkimReady;
+
+    /**
      * @var string
      */
     private $logoUrl;
@@ -227,6 +242,66 @@ class DomainModel
     public function setNsdelegated($nsdelegated)
     {
         $this->nsdelegated = $nsdelegated;
+
+        return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getEmailsMaxCount()
+    {
+        return $this->emailsMaxCount;
+    }
+
+    /**
+     * @param int $emailsMaxCount
+     *
+     * @return $this
+     */
+    public function setEmailsMaxCount($emailsMaxCount)
+    {
+        $this->emailsMaxCount = $emailsMaxCount;
+
+        return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getEmailsCount()
+    {
+        return $this->emailsCount;
+    }
+
+    /**
+     * @param int $emailsCount
+     *
+     * @return $this
+     */
+    public function setEmailsCount($emailsCount)
+    {
+        $this->emailsCount = $emailsCount;
+
+        return $this;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isDkimReady()
+    {
+        return $this->dkimReady;
+    }
+
+    /**
+     * @param bool $dkimReady
+     *
+     * @return $this
+     */
+    public function setDkimReady($dkimReady)
+    {
+        $this->dkimReady = $dkimReady;
 
         return $this;
     }

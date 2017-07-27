@@ -26,18 +26,29 @@ class DomainManagerTest extends \PHPUnit_Framework_TestCase
     public function testGetDomainsList()
     {
         $curl = $this->mock('AmaxLab\YandexPddApi\Curl\CurlClientInterface')
-            ->request((new CurlResponse(200, '{"success":"ok","domains":[{"name":"test.ru","from_registrar":"test"}]}')))
+            ->request((new CurlResponse(200, '{"direction":"asc","on_page":20,"success":"ok","domains":[{"status":"added","from_registrar":"no","name":"test.com","ws_technical":"no","logo_enabled":true,"master_admin":true,"nsdelegated":true,"emails-max-count":1000,"emails-count":0,"dkim-ready":true,"logo_url":"http//logo.url","stage":"added","aliases":["test2.com"]}],"found":1,"total":1,"page":1,"order":"default"}')))
             ->new()
         ;
 
         $domainList = (new DomainManager(''))->setCurl($curl)->getDomainList();
         $domains = $domainList->getDomains();
+        $aliases = $domains[0]->getAliases();
 
         $this->assertEquals(true, $domainList instanceof GetDomainsListResponse);
-        $this->assertEquals('ok', $domainList->getSuccess());
-        $this->assertEquals('', $domainList->getError());
         $this->assertEquals(1, count($domains));
-        $this->assertEquals('test.ru', $domains[0]->getName());
-        $this->assertEquals('test', $domains[0]->getFromRegistrar());
+        $this->assertEquals('added', $domains[0]->getStatus());
+        $this->assertEquals('no', $domains[0]->getFromRegistrar());
+        $this->assertEquals('test.com', $domains[0]->getName());
+        $this->assertEquals('no', $domains[0]->getWsTechnical());
+        $this->assertEquals(true, $domains[0]->isLogoEnabled());
+        $this->assertEquals(true, $domains[0]->isMasterAdmin());
+        $this->assertEquals(true, $domains[0]->isNsdelegated());
+        $this->assertEquals(1000, $domains[0]->getEmailsMaxCount());
+        $this->assertEquals(0, $domains[0]->getEmailsCount());
+        $this->assertEquals(true, $domains[0]->isDkimReady());
+        $this->assertEquals('http//logo.url', $domains[0]->getLogoUrl());
+        $this->assertEquals('added', $domains[0]->getStage());
+        $this->assertEquals(1, count($aliases));
+        $this->assertEquals('test2.com', $aliases[0]);
     }
 }
