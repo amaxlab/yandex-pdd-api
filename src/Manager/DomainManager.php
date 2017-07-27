@@ -24,12 +24,8 @@ class DomainManager extends AbstractManager
      */
     public function getDomainList()
     {
-        $response = $this->request((new GetDomainsListRequest()));
+        $this->request((new GetDomainsListRequest()));
 
-        $mapper = new \JsonMapper();
-        $mapper->bIgnoreVisibility = true;
-        $response = $mapper->map($response->getJson(), new GetDomainsResponse());
-
-        return $response;
+        return null;
     }
 }

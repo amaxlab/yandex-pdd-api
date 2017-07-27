@@ -11,11 +11,11 @@
 
 namespace AmaxLab\YandexPddApi\Manager;
 
+use AmaxLab\YandexPddApi\Curl\CurlClient;
+use AmaxLab\YandexPddApi\Curl\CurlResponse;
 use AmaxLab\YandexPddApi\Exception\RequestValidationException;
 use AmaxLab\YandexPddApi\Exception\ResponseValidationException;
-use AmaxLab\YandexPddApi\Request\AbstractRequest;
 use AmaxLab\YandexPddApi\Request\RequestInterface;
-use AmaxLab\YandexPddApi\Response\CurlResponse;
 
 /**
  * @author Egor Zyuskin <ezyuskin@amaxlab.ru>
@@ -30,7 +30,10 @@ abstract class AbstractManager
 
     const PDD_OAUTH_HEADER_NAME = 'OAuth';
 
-    const SUPPORTED_METHODS = [AbstractRequest::METHOD_GET, AbstractRequest::METHOD_POST];
+    /**
+     * @var array
+     */
+    private $supportedMethods = [CurlClient::METHOD_GET, CurlClient::METHOD_POST, CurlClient::METHOD_PUT];
 
     /**
      * @var string
@@ -48,12 +51,18 @@ abstract class AbstractManager
     private $registrarOAuthToken;
 
     /**
+     * @var CurlClient
+     */
+    private $curl;
+
+    /**
      * @param string $token
      * @param bool $isRegistrar
      * @param string $registrarOAuthToken
      */
     public function __construct($token, $isRegistrar = false, $registrarOAuthToken = '')
     {
+        $this->curl = new CurlClient();
         $this->token = $token;
         $this->isRegistrar = $isRegistrar;
         $this->registrarOAuthToken = $registrarOAuthToken;
@@ -81,7 +90,7 @@ abstract class AbstractManager
      */
     private function validateRequest(RequestInterface $request)
     {
-        if (!in_array($request->getMethod(), self::SUPPORTED_METHODS)) {
+        if (!in_array($request->getMethod(), $this->supportedMethods)) {
             throw new RequestValidationException(sprintf(RequestValidationException::METHOD_VALIDATION_MESSAGE, $request->getMethod()));
         }
 
@@ -114,7 +123,7 @@ abstract class AbstractManager
      */
     private function makeRequest($method, $uri, $param)
     {
-        $url = self::PDD_URL.'/api2/'.($this->isRegistrar ? 'registrar' : 'admin').$uri.(($method == AbstractRequest::METHOD_GET) ? '?'.http_build_query($param) : '');
+        $url = self::PDD_URL.'/api2/'.($this->isRegistrar ? 'registrar' : 'admin').$uri.(($method == CurlClient::METHOD_GET) ? '?'.http_build_query($param) : '');
 
         $headers = [
             self::PDD_TOKEN_HEADER.': '.$this->token,
@@ -126,27 +135,6 @@ abstract class AbstractManager
             ]);
         }
 
-        $options = [
-            CURLOPT_URL => $url,
-            CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_HTTPHEADER => $headers,
-        ];
-
-        if ($method != AbstractRequest::METHOD_GET) {
-            $options = array_merge($options, [
-                CURLOPT_POST => true,
-                CURLOPT_POSTFIELDS => $param,
-                CURLOPT_CUSTOMREQUEST => $method,
-            ]);
-        }
-
-
-        $curl = curl_init();
-        curl_setopt_array($curl, $options);
-        $result = curl_exec($curl);
-        $response = new CurlResponse(curl_getinfo($curl, CURLINFO_HTTP_CODE), $result);
-        curl_close($curl);
-
-        return $response;
+        return $this->curl->request($method, $url, $param, $headers);
     }
 }

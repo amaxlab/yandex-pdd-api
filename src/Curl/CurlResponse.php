@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace AmaxLab\YandexPddApi\Response;
+namespace AmaxLab\YandexPddApi\Curl;
 
 /**
  * @author Egor Zyuskin <ezyuskin@amaxlab.ru>
