@@ -14,7 +14,7 @@ namespace AmaxLab\YandexPddApi\Curl;
 /**
  * @author Egor Zyuskin <ezyuskin@amaxlab.ru>
  */
-class CurlClient
+class CurlClient implements CurlClientInterface
 {
     const METHOD_GET = 'GET';
 

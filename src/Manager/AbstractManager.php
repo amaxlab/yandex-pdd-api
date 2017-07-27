@@ -12,10 +12,13 @@
 namespace AmaxLab\YandexPddApi\Manager;
 
 use AmaxLab\YandexPddApi\Curl\CurlClient;
+use AmaxLab\YandexPddApi\Curl\CurlClientInterface;
 use AmaxLab\YandexPddApi\Curl\CurlResponse;
 use AmaxLab\YandexPddApi\Exception\RequestValidationException;
 use AmaxLab\YandexPddApi\Exception\ResponseValidationException;
+use AmaxLab\YandexPddApi\Exception\YandexResponseValidationException;
 use AmaxLab\YandexPddApi\Request\RequestInterface;
+use AmaxLab\YandexPddApi\Response\AbstractResponse;
 
 /**
  * @author Egor Zyuskin <ezyuskin@amaxlab.ru>
@@ -85,6 +88,26 @@ abstract class AbstractManager
     }
 
     /**
+     * @return CurlClientInterface
+     */
+    public function getCurl()
+    {
+        return $this->curl;
+    }
+
+    /**
+     * @param CurlClientInterface $curl
+     *
+     * @return $this
+     */
+    public function setCurl(CurlClientInterface $curl)
+    {
+        $this->curl = $curl;
+
+        return $this;
+    }
+
+    /**
      * @param RequestInterface $request
      * @throws RequestValidationException
      */
@@ -109,8 +132,12 @@ abstract class AbstractManager
             throw new ResponseValidationException(sprintf(ResponseValidationException::STATUS_CODE_VALIDATION_MESSAGE, $response->getStatusCode()));
         }
 
-        if ($response->getJson()) {
+        if (!$json = $response->getJson()) {
             throw new ResponseValidationException(ResponseValidationException::JSON_CONTENT_VALIDATION_MESSAGE);
+        }
+
+        if ($json->success != AbstractResponse::SUCCESS_OK) {
+            throw new YandexResponseValidationException($json->error);
         }
     }
 
@@ -135,6 +162,6 @@ abstract class AbstractManager
             ]);
         }
 
-        return $this->curl->request($method, $url, $param, $headers);
+        return $this->getCurl()->request($method, $url, $param, $headers);
     }
 }

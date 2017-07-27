@@ -11,7 +11,9 @@
 
 namespace AmaxLab\YandexPddApi\Tests\Manager;
 
+use AmaxLab\YandexPddApi\Curl\CurlResponse;
 use AmaxLab\YandexPddApi\Manager\DomainManager;
+use AmaxLab\YandexPddApi\Request\GetDomainsListRequest;
 use Xpmock\TestCaseTrait;
 
 /**
@@ -41,5 +43,38 @@ class AbstractManagerTest extends \PHPUnit_Framework_TestCase
         ;
 
         (new DomainManager(''))->request($request);
+    }
+
+    public function testResponseStatusCodeValidationThrow()
+    {
+        $this->setExpectedException('AmaxLab\YandexPddApi\Exception\ResponseValidationException');
+        $curl = $this->mock('AmaxLab\YandexPddApi\Curl\CurlClientInterface')
+            ->request((new CurlResponse(500, '')))
+            ->new()
+        ;
+
+        (new DomainManager(''))->setCurl($curl)->request(new GetDomainsListRequest());
+    }
+
+    public function testResponseJsonValidationThrow()
+    {
+        $this->setExpectedException('AmaxLab\YandexPddApi\Exception\ResponseValidationException');
+        $curl = $this->mock('AmaxLab\YandexPddApi\Curl\CurlClientInterface')
+            ->request((new CurlResponse(200, '')))
+            ->new()
+        ;
+
+        (new DomainManager(''))->setCurl($curl)->request(new GetDomainsListRequest());
+    }
+
+    public function testYandexResponseErrorValidationThrow()
+    {
+        $this->setExpectedException('AmaxLab\YandexPddApi\Exception\YandexResponseValidationException');
+        $curl = $this->mock('AmaxLab\YandexPddApi\Curl\CurlClientInterface')
+            ->request((new CurlResponse(200, '{"success":"error","error":"unknown"}')))
+            ->new()
+        ;
+
+        (new DomainManager(''))->setCurl($curl)->request(new GetDomainsListRequest());
     }
 }
