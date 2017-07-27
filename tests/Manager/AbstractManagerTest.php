@@ -11,13 +11,35 @@
 
 namespace AmaxLab\YandexPddApi\Tests\Manager;
 
+use AmaxLab\YandexPddApi\Manager\DomainManager;
+use Xpmock\TestCaseTrait;
+
 /**
  * @author Egor Zyuskin <ezyuskin@amaxlab.ru>
  */
 class AbstractManagerTest extends \PHPUnit_Framework_TestCase
 {
-    public function testOk()
+    use TestCaseTrait;
+
+    public function testRequestMethodValidationThrow()
     {
-        $this->assertEquals(true, true);
+        $this->setExpectedException('AmaxLab\YandexPddApi\Exception\RequestValidationException');
+        $request = $this->mock('AmaxLab\YandexPddApi\Request\GetDomainsListRequest')
+            ->getMethod('OPTIONS')
+            ->new()
+        ;
+
+        (new DomainManager(''))->request($request);
+    }
+
+    public function testRequestParamsValidationThrow()
+    {
+        $this->setExpectedException('AmaxLab\YandexPddApi\Exception\RequestValidationException');
+        $request = $this->mock('AmaxLab\YandexPddApi\Request\GetDomainsListRequest')
+            ->getParams('')
+            ->new()
+        ;
+
+        (new DomainManager(''))->request($request);
     }
 }

@@ -73,7 +73,7 @@ abstract class AbstractManager
      *
      * @return CurlResponse
      */
-    protected function request(RequestInterface $request)
+    public function request(RequestInterface $request)
     {
         $this->validateRequest($request);
 
@@ -109,7 +109,7 @@ abstract class AbstractManager
             throw new ResponseValidationException(sprintf(ResponseValidationException::STATUS_CODE_VALIDATION_MESSAGE, $response->getStatusCode()));
         }
 
-        if (!$json = $response->getJson()) {
+        if ($response->getJson()) {
             throw new ResponseValidationException(ResponseValidationException::JSON_CONTENT_VALIDATION_MESSAGE);
         }
     }
