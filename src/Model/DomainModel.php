@@ -39,11 +39,6 @@ class DomainModel
     /**
      * @var bool
      */
-    private $nodkim;
-
-    /**
-     * @var bool
-     */
     private $logoEnabled;
 
     /**
@@ -162,26 +157,6 @@ class DomainModel
     public function setWsTechnical($wsTechnical)
     {
         $this->wsTechnical = $wsTechnical;
-
-        return $this;
-    }
-
-    /**
-     * @return bool
-     */
-    public function isNodkim()
-    {
-        return $this->nodkim;
-    }
-
-    /**
-     * @param bool $nodkim
-     *
-     * @return $this
-     */
-    public function setNodkim($nodkim)
-    {
-        $this->nodkim = $nodkim;
 
         return $this;
     }
