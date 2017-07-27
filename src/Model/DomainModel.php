@@ -16,25 +16,278 @@ namespace AmaxLab\YandexPddApi\Model;
  */
 class DomainModel
 {
-    protected $status;
+    /**
+     * @var string
+     */
+    private $status;
 
-    protected $from_registrar;
+    /**
+     * @var string
+     */
+    private $fromRegistrar;
 
-    protected $name;
+    /**
+     * @var string
+     */
+    private $name;
 
-    protected $ws_technical;
+    /**
+     * @var string
+     */
+    private $wsTechnical;
 
-    protected $nodkim;
+    /**
+     * @var bool
+     */
+    private $nodkim;
 
-    protected $logo_enabled;
+    /**
+     * @var bool
+     */
+    private $logoEnabled;
 
-    protected $master_admin;
+    /**
+     * @var bool
+     */
+    private $masterAdmin;
 
-    protected $nsdelegated;
+    /**
+     * @var bool
+     */
+    private $nsdelegated;
 
-    protected $logo_url;
+    /**
+     * @var string
+     */
+    private $logoUrl;
 
-    protected $stage;
+    /**
+     * @var string
+     */
+    private $stage;
 
-    protected $aliases;
+    /**
+     * @var string[]
+     */
+    private $aliases;
+
+    /**
+     * @return string
+     */
+    public function getStatus()
+    {
+        return $this->status;
+    }
+
+    /**
+     * @param string $status
+     *
+     * @return $this
+     */
+    public function setStatus($status)
+    {
+        $this->status = $status;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getFromRegistrar()
+    {
+        return $this->fromRegistrar;
+    }
+
+    /**
+     * @param string $fromRegistrar
+     *
+     * @return $this
+     */
+    public function setFromRegistrar($fromRegistrar)
+    {
+        $this->fromRegistrar = $fromRegistrar;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
+     * @param string $name
+     *
+     * @return $this
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getWsTechnical()
+    {
+        return $this->wsTechnical;
+    }
+
+    /**
+     * @param string $wsTechnical
+     *
+     * @return $this
+     */
+    public function setWsTechnical($wsTechnical)
+    {
+        $this->wsTechnical = $wsTechnical;
+
+        return $this;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isNodkim()
+    {
+        return $this->nodkim;
+    }
+
+    /**
+     * @param bool $nodkim
+     *
+     * @return $this
+     */
+    public function setNodkim($nodkim)
+    {
+        $this->nodkim = $nodkim;
+
+        return $this;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isLogoEnabled()
+    {
+        return $this->logoEnabled;
+    }
+
+    /**
+     * @param bool $logoEnabled
+     *
+     * @return $this
+     */
+    public function setLogoEnabled($logoEnabled)
+    {
+        $this->logoEnabled = $logoEnabled;
+
+        return $this;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isMasterAdmin()
+    {
+        return $this->masterAdmin;
+    }
+
+    /**
+     * @param bool $masterAdmin
+     *
+     * @return $this
+     */
+    public function setMasterAdmin($masterAdmin)
+    {
+        $this->masterAdmin = $masterAdmin;
+
+        return $this;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isNsdelegated()
+    {
+        return $this->nsdelegated;
+    }
+
+    /**
+     * @param bool $nsdelegated
+     *
+     * @return $this
+     */
+    public function setNsdelegated($nsdelegated)
+    {
+        $this->nsdelegated = $nsdelegated;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getLogoUrl()
+    {
+        return $this->logoUrl;
+    }
+
+    /**
+     * @param string $logoUrl
+     *
+     * @return $this
+     */
+    public function setLogoUrl($logoUrl)
+    {
+        $this->logoUrl = $logoUrl;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getStage()
+    {
+        return $this->stage;
+    }
+
+    /**
+     * @param string $stage
+     *
+     * @return $this
+     */
+    public function setStage($stage)
+    {
+        $this->stage = $stage;
+
+        return $this;
+    }
+
+    /**
+     * @return string[]
+     */
+    public function getAliases()
+    {
+        return $this->aliases;
+    }
+
+    /**
+     * @param string[] $aliases
+     *
+     * @return $this
+     */
+    public function setAliases($aliases)
+    {
+        $this->aliases = $aliases;
+
+        return $this;
+    }
 }

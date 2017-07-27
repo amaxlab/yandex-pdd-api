@@ -19,6 +19,7 @@ use AmaxLab\YandexPddApi\Exception\ResponseValidationException;
 use AmaxLab\YandexPddApi\Exception\YandexResponseValidationException;
 use AmaxLab\YandexPddApi\Request\RequestInterface;
 use AmaxLab\YandexPddApi\Response\AbstractResponse;
+use AmaxLab\YandexPddApi\Response\GetDomainsListResponse;
 use AmaxLab\YandexPddApi\Response\ResponseInterface;
 use JsonMapper;
 

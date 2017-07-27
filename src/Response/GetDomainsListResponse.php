@@ -19,5 +19,25 @@ class GetDomainsListResponse extends AbstractPaginationResponse
     /**
      * @var \AmaxLab\YandexPddApi\Model\DomainModel[]
      */
-    protected $domains;
+    private $domains;
+
+    /**
+     * @return \AmaxLab\YandexPddApi\Model\DomainModel[]
+     */
+    public function getDomains()
+    {
+        return $this->domains;
+    }
+
+    /**
+     * @param \AmaxLab\YandexPddApi\Model\DomainModel[] $domains
+     *
+     * @return $this
+     */
+    public function setDomains($domains)
+    {
+        $this->domains = $domains;
+
+        return $this;
+    }
 }

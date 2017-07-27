@@ -39,10 +39,34 @@ abstract class AbstractResponse implements ResponseInterface
     }
 
     /**
+     * @param string $success
+     *
+     * @return $this
+     */
+    public function setSuccess($success)
+    {
+        $this->success = $success;
+
+        return $this;
+    }
+
+    /**
      * @return string
      */
     public function getError()
     {
         return $this->error;
+    }
+
+    /**
+     * @param string $error
+     *
+     * @return $this
+     */
+    public function setError($error)
+    {
+        $this->error = $error;
+
+        return $this;
     }
 }

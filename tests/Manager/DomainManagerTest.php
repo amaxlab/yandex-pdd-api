@@ -26,12 +26,18 @@ class DomainManagerTest extends \PHPUnit_Framework_TestCase
     public function testGetDomainsList()
     {
         $curl = $this->mock('AmaxLab\YandexPddApi\Curl\CurlClientInterface')
-            ->request((new CurlResponse(200, '{"success":"ok"}')))
+            ->request((new CurlResponse(200, '{"success":"ok","domains":[{"name":"test.ru","from_registrar":"test"}]}')))
             ->new()
         ;
 
         $domainList = (new DomainManager(''))->setCurl($curl)->getDomainList();
+        $domains = $domainList->getDomains();
 
         $this->assertEquals(true, $domainList instanceof GetDomainsListResponse);
+        $this->assertEquals('ok', $domainList->getSuccess());
+        $this->assertEquals('', $domainList->getError());
+        $this->assertEquals(1, count($domains));
+        $this->assertEquals('test.ru', $domains[0]->getName());
+        $this->assertEquals('test', $domains[0]->getFromRegistrar());
     }
 }
