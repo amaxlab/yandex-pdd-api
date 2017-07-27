@@ -41,7 +41,7 @@ class YandexResponseValidationException extends ResponseValidationException
             'domain_limit_reached' => 'Reached domain limit 50',
         ];
 
-        if (!$messages[$name]) {
+        if (!isset($messages[$name])) {
             $name = 'error_message_not_found';
         }
 

@@ -26,7 +26,7 @@ class AbstractResponseTest extends \PHPUnit_Framework_TestCase
     public function testAbstractResponse()
     {
         $curl = $this->mock('AmaxLab\YandexPddApi\Curl\CurlClientInterface')
-            ->request((new CurlResponse(200, '{"success":"ok"}')))
+            ->request((new CurlResponse(200, '{"success":"ok","error":"false"}')))
             ->new()
         ;
 
@@ -34,6 +34,6 @@ class AbstractResponseTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals(true, $domainList instanceof GetDomainsListResponse);
         $this->assertEquals('ok', $domainList->getSuccess());
-        $this->assertEquals('', $domainList->getError());
+        $this->assertEquals('false', $domainList->getError());
     }
 }

@@ -77,4 +77,15 @@ class AbstractManagerTest extends \PHPUnit_Framework_TestCase
 
         (new DomainManager(''))->setCurl($curl)->request(new GetDomainsListRequest(), '');
     }
+
+    public function testYandexResponseEmptyErrorValidationThrow()
+    {
+        $this->setExpectedException('AmaxLab\YandexPddApi\Exception\YandexResponseValidationException');
+        $curl = $this->mock('AmaxLab\YandexPddApi\Curl\CurlClientInterface')
+            ->request((new CurlResponse(200, '{"success":"error","error":"bad_bad_error"}')))
+            ->new()
+        ;
+
+        (new DomainManager(''))->setCurl($curl)->request(new GetDomainsListRequest(), '');
+    }
 }
