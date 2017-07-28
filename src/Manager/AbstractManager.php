@@ -29,6 +29,8 @@ abstract class AbstractManager
 {
     const PDD_URL = 'https://pddimp.yandex.ru';
 
+    const PDD_API_VERSION = 'api2';
+
     const PDD_TOKEN_HEADER = 'PddToken';
 
     const PDD_OAUTH_HEADER = 'Authorization';
@@ -154,24 +156,52 @@ abstract class AbstractManager
     /**
      * @param string $method
      * @param string $uri
-     * @param array $param
+     * @param array $params
      *
      * @return CurlResponse
      */
-    private function makeRequest($method, $uri, $param)
+    private function makeRequest($method, $uri, $params)
     {
-        $url = self::PDD_URL.'/api2/'.($this->isRegistrar ? 'registrar' : 'admin').$uri.(($method == CurlClient::METHOD_GET) ? '?'.http_build_query($param) : '');
+        $url = $this->getUrl($method, $uri, $params, $this->isRegistrar);
+        $headers = $this->getHeaders($this->isRegistrar, $this->token, $this->registrarOAuthToken);
 
+        return $this->getCurl()->request($method, $url, $params, $headers);
+    }
+
+    /**
+     * @param bool $isRegistrar
+     * @param string $token
+     * @param string $oauthToken
+     *
+     * @return array
+     */
+    private function getHeaders($isRegistrar, $token, $oauthToken)
+    {
         $headers = [
-            self::PDD_TOKEN_HEADER.': '.$this->token,
+            self::PDD_TOKEN_HEADER.': '.$token,
         ];
 
-        if ($this->isRegistrar) {
+        if ($isRegistrar) {
             $headers = array_merge($headers, [
-                self::PDD_OAUTH_HEADER.': '.self::PDD_OAUTH_HEADER_NAME.' '.$this->registrarOAuthToken,
+                self::PDD_OAUTH_HEADER.': '.self::PDD_OAUTH_HEADER_NAME.' '.$oauthToken,
             ]);
         }
 
-        return $this->getCurl()->request($method, $url, $param, $headers);
+        return $headers;
+    }
+
+    /**
+     * @param string $method
+     * @param string $uri
+     * @param array $params
+     * @param bool $isRegistrar
+     *
+     * @return string
+     */
+    private function getUrl($method, $uri, $params = [], $isRegistrar = false)
+    {
+        return self::PDD_URL.'/'.self::PDD_API_VERSION.'/'
+            .($isRegistrar ? 'registrar' : 'admin')
+            .$uri.(($method == CurlClient::METHOD_GET) ? '?'.http_build_query($params) : '');
     }
 }
