@@ -14,7 +14,6 @@ namespace AmaxLab\YandexPddApi\Tests\Manager;
 use AmaxLab\YandexPddApi\Curl\CurlResponse;
 use AmaxLab\YandexPddApi\Manager\DomainManager;
 use AmaxLab\YandexPddApi\Request\GetDomainsListRequest;
-use ReflectionClass;
 use Xpmock\TestCaseTrait;
 
 /**
@@ -23,14 +22,6 @@ use Xpmock\TestCaseTrait;
 class AbstractManagerTest extends \PHPUnit_Framework_TestCase
 {
     use TestCaseTrait;
-
-    protected static function getMethod($name) {
-        $class = new ReflectionClass('AmaxLab\YandexPddApi\Manager\DomainManager');
-        $method = $class->getMethod($name);
-        $method->setAccessible(true);
-
-        return $method;
-    }
 
     public function testRequestMethodValidationThrow()
     {
@@ -100,10 +91,9 @@ class AbstractManagerTest extends \PHPUnit_Framework_TestCase
 
     public function testGetHeadersMethod()
     {
-        $method = self::getMethod('getHeaders');
         $manager = new DomainManager('');
-        $this->assertEquals(['PddToken: '], $method->invokeArgs($manager, [false, '', '']));
-        $this->assertEquals(['PddToken: ', 'Authorization: OAuth '], $method->invokeArgs($manager, [true, '', '']));
 
+        $this->assertEquals(['PddToken: '], $this->reflect($manager)->getHeaders(false, '', ''));
+        $this->assertEquals(['PddToken: ', 'Authorization: OAuth '], $this->reflect($manager)->getHeaders(true, '', ''));
     }
 }

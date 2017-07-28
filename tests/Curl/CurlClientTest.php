@@ -11,19 +11,24 @@
 
 namespace AmaxLab\YandexPddApi\Tests\Curl;
 
-use AmaxLab\YandexPddApi\Curl\CurlClient;
 use AmaxLab\YandexPddApi\Curl\CurlResponse;
+use Xpmock\TestCaseTrait;
 
 /**
  * @author Egor Zyuskin <ezyuskin@amanxlab.ru>
  */
 class CurlClientTest extends \PHPUnit_Framework_TestCase
 {
+    use TestCaseTrait;
+
     public function testResponse()
     {
-        $client = new CurlClient();
+        $client = $this->mock('AmaxLab\YandexPddApi\Curl\CurlClient')
+            ->makeRequest('')
+            ->new(false)
+        ;
 
-        $this->assertEquals(true, $client->request('GET', 'http://localhost', []) instanceof CurlResponse);
-        $this->assertEquals(true, $client->request('POST', 'http://localhost', []) instanceof CurlResponse);
+        $this->assertEquals(true, $client->request('GET', '', []) instanceof CurlResponse);
+        $this->assertEquals(true, $client->request('POST', '', []) instanceof CurlResponse);
     }
 }
