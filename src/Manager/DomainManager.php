@@ -16,10 +16,13 @@ use AmaxLab\YandexPddApi\Request\Domain\GetDomainSettingRequest;
 use AmaxLab\YandexPddApi\Request\Domain\GetDomainsListRequest;
 use AmaxLab\YandexPddApi\Request\Domain\GetDomainRegistrationStatusRequest;
 use AmaxLab\YandexPddApi\Request\Domain\RegisterDomainRequest;
+use AmaxLab\YandexPddApi\Request\Domain\SetDomainCountryRequest;
+use AmaxLab\YandexPddApi\Response\Domain\DeleteDomainResponse;
 use AmaxLab\YandexPddApi\Response\Domain\GetDomainSettingsResponse;
 use AmaxLab\YandexPddApi\Response\Domain\GetDomainsListResponse;
 use AmaxLab\YandexPddApi\Response\Domain\GetDomainRegistrationStatusResponse;
 use AmaxLab\YandexPddApi\Response\Domain\RegisterDomainResponse;
+use AmaxLab\YandexPddApi\Response\Domain\SetDomainCountryResponse;
 
 /**
  * @author Egor Zyuskin <ezyuskin@amaxlab.ru>
@@ -67,10 +70,21 @@ class DomainManager extends AbstractManager
     /**
      * @param string $domainName
      *
-     * @return RegisterDomainResponse|object
+     * @return DeleteDomainResponse|object
      */
     public function deleteDomain($domainName)
     {
         return $this->request(new DeleteDomainRequest($domainName), 'AmaxLab\YandexPddApi\Response\Domain\DeleteDomainResponse');
+    }
+
+    /**
+     * @param string $domainName
+     * @param string $country
+     *
+     * @return SetDomainCountryResponse|object
+     */
+    public function setDomainCountry($domainName, $country)
+    {
+        return $this->request(new SetDomainCountryRequest($domainName, $country), 'AmaxLab\YandexPddApi\Response\Domain\SetDomainCountryResponse');
     }
 }

@@ -115,4 +115,16 @@ class DomainManagerTest extends \PHPUnit_Framework_TestCase
         $response = (new DomainManager(''))->setCurl($curl)->deleteDomain('domain.com');
         $this->assertEquals('domain.com', $response->getDomain());
     }
+
+    public function testSetDomainCountry()
+    {
+        $curl = $this->mock('AmaxLab\YandexPddApi\Curl\CurlClientInterface')
+            ->request((new CurlResponse(200, '{"country": "ru", "domain": "domain.com", "success": "ok"}')))
+            ->new()
+        ;
+
+        $response = (new DomainManager(''))->setCurl($curl)->setDomainCountry('domain.com', 'ru');
+        $this->assertEquals('domain.com', $response->getDomain());
+        $this->assertEquals('ru', $response->getCountry());
+    }
 }
