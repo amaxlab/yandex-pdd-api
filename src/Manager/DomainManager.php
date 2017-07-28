@@ -11,14 +11,14 @@
 
 namespace AmaxLab\YandexPddApi\Manager;
 
-use AmaxLab\YandexPddApi\Request\GetDomainSettingRequest;
-use AmaxLab\YandexPddApi\Request\GetDomainsListRequest;
-use AmaxLab\YandexPddApi\Request\GetDomainRegistrationStatusRequest;
-use AmaxLab\YandexPddApi\Request\RegisterDomainRequest;
-use AmaxLab\YandexPddApi\Response\GetDomainSettingsResponse;
-use AmaxLab\YandexPddApi\Response\GetDomainsListResponse;
-use AmaxLab\YandexPddApi\Response\GetDomainRegistrationStatusResponse;
-use AmaxLab\YandexPddApi\Response\RegisterDomainResponse;
+use AmaxLab\YandexPddApi\Request\Domain\GetDomainSettingRequest;
+use AmaxLab\YandexPddApi\Request\Domain\GetDomainsListRequest;
+use AmaxLab\YandexPddApi\Request\Domain\GetDomainRegistrationStatusRequest;
+use AmaxLab\YandexPddApi\Request\Domain\RegisterDomainRequest;
+use AmaxLab\YandexPddApi\Response\Domain\GetDomainSettingsResponse;
+use AmaxLab\YandexPddApi\Response\Domain\GetDomainsListResponse;
+use AmaxLab\YandexPddApi\Response\Domain\GetDomainRegistrationStatusResponse;
+use AmaxLab\YandexPddApi\Response\Domain\RegisterDomainResponse;
 
 /**
  * @author Egor Zyuskin <ezyuskin@amaxlab.ru>
@@ -30,7 +30,7 @@ class DomainManager extends AbstractManager
      */
     public function getDomainList()
     {
-        return $this->request(new GetDomainsListRequest(), 'AmaxLab\YandexPddApi\Response\GetDomainsListResponse');
+        return $this->request(new GetDomainsListRequest(), 'AmaxLab\YandexPddApi\Response\Domain\GetDomainsListResponse');
     }
 
     /**
@@ -40,7 +40,7 @@ class DomainManager extends AbstractManager
      */
     public function registerDomain($domainName)
     {
-        return $this->request(new RegisterDomainRequest($domainName), 'AmaxLab\YandexPddApi\Response\RegisterDomainResponse');
+        return $this->request(new RegisterDomainRequest($domainName), 'AmaxLab\YandexPddApi\Response\Domain\RegisterDomainResponse');
     }
 
     /**
@@ -50,7 +50,7 @@ class DomainManager extends AbstractManager
      */
     public function getRegistrationStatusDomain($domainName)
     {
-        return $this->request(new GetDomainRegistrationStatusRequest($domainName), 'AmaxLab\YandexPddApi\Response\GetDomainRegistrationStatusResponse');
+        return $this->request(new GetDomainRegistrationStatusRequest($domainName), 'AmaxLab\YandexPddApi\Response\Domain\GetDomainRegistrationStatusResponse');
     }
 
     /**
@@ -60,6 +60,6 @@ class DomainManager extends AbstractManager
      */
     public function getDomainSettings($domainName)
     {
-        return $this->request(new GetDomainSettingRequest($domainName), 'AmaxLab\YandexPddApi\Response\GetDomainSettingsResponse');
+        return $this->request(new GetDomainSettingRequest($domainName), 'AmaxLab\YandexPddApi\Response\Domain\GetDomainSettingsResponse');
     }
 }

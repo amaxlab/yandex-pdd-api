@@ -9,7 +9,9 @@
  * file that was distributed with this source code.
  */
 
-namespace AmaxLab\YandexPddApi\Response;
+namespace AmaxLab\YandexPddApi\Response\Domain;
+
+use AmaxLab\YandexPddApi\Response\AbstractResponse;
 
 /**
  * @author Egor Zyuskin <ezyuskin@amaxlab.ru>

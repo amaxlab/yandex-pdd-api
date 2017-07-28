@@ -13,7 +13,7 @@ namespace AmaxLab\YandexPddApi\Tests\Manager;
 
 use AmaxLab\YandexPddApi\Curl\CurlResponse;
 use AmaxLab\YandexPddApi\Manager\DomainManager;
-use AmaxLab\YandexPddApi\Request\GetDomainsListRequest;
+use AmaxLab\YandexPddApi\Request\Domain\GetDomainsListRequest;
 use Xpmock\TestCaseTrait;
 
 /**
@@ -26,7 +26,7 @@ class AbstractManagerTest extends \PHPUnit_Framework_TestCase
     public function testRequestMethodValidationThrow()
     {
         $this->setExpectedException('AmaxLab\YandexPddApi\Exception\RequestValidationException');
-        $request = $this->mock('AmaxLab\YandexPddApi\Request\GetDomainsListRequest')
+        $request = $this->mock('AmaxLab\YandexPddApi\Request\Domain\GetDomainsListRequest')
             ->getMethod('OPTIONS')
             ->new()
         ;
@@ -37,7 +37,7 @@ class AbstractManagerTest extends \PHPUnit_Framework_TestCase
     public function testRequestParamsValidationThrow()
     {
         $this->setExpectedException('AmaxLab\YandexPddApi\Exception\RequestValidationException');
-        $request = $this->mock('AmaxLab\YandexPddApi\Request\GetDomainsListRequest')
+        $request = $this->mock('AmaxLab\YandexPddApi\Request\Domain\GetDomainsListRequest')
             ->getParams('')
             ->new()
         ;

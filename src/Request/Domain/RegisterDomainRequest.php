@@ -9,9 +9,10 @@
  * file that was distributed with this source code.
  */
 
-namespace AmaxLab\YandexPddApi\Request;
+namespace AmaxLab\YandexPddApi\Request\Domain;
 
 use AmaxLab\YandexPddApi\Curl\CurlClient;
+use AmaxLab\YandexPddApi\Request\AbstractRequest;
 
 /**
  * @author Egor Zyuskin <ezyuskin@amaxlab.ru>

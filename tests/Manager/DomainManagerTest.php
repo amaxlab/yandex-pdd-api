@@ -13,7 +13,7 @@ namespace AmaxLab\YandexPddApi\Tests\Manager;
 
 use AmaxLab\YandexPddApi\Curl\CurlResponse;
 use AmaxLab\YandexPddApi\Manager\DomainManager;
-use AmaxLab\YandexPddApi\Response\GetDomainsListResponse;
+use AmaxLab\YandexPddApi\Response\Domain\GetDomainsListResponse;
 use Xpmock\TestCaseTrait;
 
 /**
