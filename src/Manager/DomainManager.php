@@ -11,6 +11,7 @@
 
 namespace AmaxLab\YandexPddApi\Manager;
 
+use AmaxLab\YandexPddApi\Request\Domain\DeleteDomainRequest;
 use AmaxLab\YandexPddApi\Request\Domain\GetDomainSettingRequest;
 use AmaxLab\YandexPddApi\Request\Domain\GetDomainsListRequest;
 use AmaxLab\YandexPddApi\Request\Domain\GetDomainRegistrationStatusRequest;
@@ -61,5 +62,15 @@ class DomainManager extends AbstractManager
     public function getDomainSettings($domainName)
     {
         return $this->request(new GetDomainSettingRequest($domainName), 'AmaxLab\YandexPddApi\Response\Domain\GetDomainSettingsResponse');
+    }
+
+    /**
+     * @param string $domainName
+     *
+     * @return RegisterDomainResponse|object
+     */
+    public function deleteDomain($domainName)
+    {
+        return $this->request(new DeleteDomainRequest($domainName), 'AmaxLab\YandexPddApi\Response\Domain\DeleteDomainResponse');
     }
 }

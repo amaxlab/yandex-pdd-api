@@ -104,4 +104,15 @@ class DomainManagerTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('http//logo.url', $response->getLogoUrl());
         $this->assertEquals('added', $response->getStage());
     }
+
+    public function testDeleteDomain()
+    {
+        $curl = $this->mock('AmaxLab\YandexPddApi\Curl\CurlClientInterface')
+            ->request((new CurlResponse(200, '{"domain": "domain.com", "success": "ok"}')))
+            ->new()
+        ;
+
+        $response = (new DomainManager(''))->setCurl($curl)->deleteDomain('domain.com');
+        $this->assertEquals('domain.com', $response->getDomain());
+    }
 }
