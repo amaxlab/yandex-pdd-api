@@ -27,12 +27,4 @@ abstract class AbstractRequest implements RequestInterface
     {
         return self::METHOD_GET;
     }
-
-    /**
-     * @return array
-     */
-    public function getParams()
-    {
-        return [];
-    }
 }
