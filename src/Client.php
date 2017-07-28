@@ -11,6 +11,7 @@
 
 namespace AmaxLab\YandexPddApi;
 
+use AmaxLab\YandexPddApi\Manager\DnsManager;
 use AmaxLab\YandexPddApi\Manager\DomainManager;
 
 /**
@@ -39,6 +40,11 @@ class Client
     private $domainManager;
 
     /**
+     * @var DnsManager
+     */
+    private $dnsManager;
+
+    /**
      * @param string $token
      * @param bool $isRegistrar
      * @param string $registrarOAuthToken
@@ -60,5 +66,17 @@ class Client
         }
 
         return $this->domainManager;
+    }
+
+    /**
+     * @return DnsManager
+     */
+    public function getDnsManager()
+    {
+        if (!$this->dnsManager) {
+            $this->dnsManager = new DnsManager($this->token, $this->isRegistrar, $this->registrarOAuthToken);
+        }
+
+        return $this->dnsManager;
     }
 }

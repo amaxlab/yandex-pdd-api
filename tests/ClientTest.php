@@ -11,6 +11,7 @@
 
 namespace AmaxLab\YandexPddApi\Tests;
 
+use AmaxLab\YandexPddApi\Manager\DnsManager;
 use AmaxLab\YandexPddApi\Manager\DomainManager;
 use AmaxLab\YandexPddApi\Client;
 
@@ -27,5 +28,10 @@ class ClientTest extends \PHPUnit_Framework_TestCase
     public function testGetDomainManager()
     {
         $this->assertEquals(true, (new Client(''))->getDomainManager() instanceof DomainManager);
+    }
+
+    public function testGetDnsManager()
+    {
+        $this->assertEquals(true, (new Client(''))->getDnsManager() instanceof DnsManager);
     }
 }
