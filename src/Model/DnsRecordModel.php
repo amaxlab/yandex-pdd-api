@@ -59,6 +59,16 @@ class DnsRecordModel
     /**
      * @var int
      */
+    private $refresh;
+
+    /**
+     * @var int
+     */
+    private $retry;
+
+    /**
+     * @var int
+     */
     private $ttl = self::TTL;
 
     /**
@@ -82,9 +92,14 @@ class DnsRecordModel
     private $priority = self::PRIORITY;
 
     /**
+     * @var int
+     */
+    private $expire;
+
+    /**
      * @var string
      */
-    private $adminEmail;
+    private $adminMail;
 
     /**
      * @var int
@@ -184,6 +199,46 @@ class DnsRecordModel
     /**
      * @return int
      */
+    public function getRetry()
+    {
+        return $this->retry;
+    }
+
+    /**
+     * @param int $retry
+     *
+     * @return $this
+     */
+    public function setRetry($retry)
+    {
+        $this->retry = $retry;
+
+        return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getRefresh()
+    {
+        return $this->refresh;
+    }
+
+    /**
+     * @param int $refresh
+     *
+     * @return $this
+     */
+    public function setRefresh($refresh)
+    {
+        $this->refresh = $refresh;
+
+        return $this;
+    }
+
+    /**
+     * @return int
+     */
     public function getTtl()
     {
         return $this->ttl;
@@ -264,6 +319,26 @@ class DnsRecordModel
     /**
      * @return int
      */
+    public function getExpire()
+    {
+        return $this->expire;
+    }
+
+    /**
+     * @param int $expire
+     *
+     * @return $this
+     */
+    public function setExpire($expire)
+    {
+        $this->expire = $expire;
+
+        return $this;
+    }
+
+    /**
+     * @return int
+     */
     public function getPriority()
     {
         return $this->priority;
@@ -284,19 +359,19 @@ class DnsRecordModel
     /**
      * @return string
      */
-    public function getAdminEmail()
+    public function getAdminMail()
     {
-        return $this->adminEmail;
+        return $this->adminMail;
     }
 
     /**
-     * @param string $adminEmail
+     * @param string $adminMail
      *
      * @return $this
      */
-    public function setAdminEmail($adminEmail)
+    public function setAdminMail($adminMail)
     {
-        $this->adminEmail = $adminEmail;
+        $this->adminMail = $adminMail;
 
         return $this;
     }

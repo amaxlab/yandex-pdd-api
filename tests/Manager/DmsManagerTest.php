@@ -13,6 +13,7 @@ namespace AmaxLab\YandexPddApi\Tests\Manager;
 
 use AmaxLab\YandexPddApi\Curl\CurlResponse;
 use AmaxLab\YandexPddApi\Manager\DnsManager;
+use AmaxLab\YandexPddApi\Model\DnsRecordModel;
 use Xpmock\TestCaseTrait;
 
 /**
@@ -45,10 +46,19 @@ class DmsManagerTest extends \PHPUnit_Framework_TestCase
         $records = $response->getRecords();
         $this->assertEquals(4, count($records));
         $this->assertEquals('domain.com', $response->getDomain());
-        $this->assertEquals('0', $records[0]->getRecordId());
+        $this->assertEquals(0, $records[0]->getRecordId());
         $this->assertEquals('domain.com', $records[0]->getDomain());
         $this->assertEquals('127.0.0.1', $records[0]->getContent());
         $this->assertEquals('test.domain.com', $records[0]->getFqdn());
-        $this->assertEquals('21600', $records[0]->getTtl());
+        $this->assertEquals(21600, $records[0]->getTtl());
+        $this->assertEquals('test', $records[0]->getSubDomain());
+        $this->assertEquals(DnsRecordModel::TYPE_A, $records[0]->getType());
+        $this->assertEquals(DnsRecordModel::TYPE_CNAME, $records[1]->getType());
+        $this->assertEquals(900, $records[2]->getRetry());
+        $this->assertEquals(14400, $records[2]->getRefresh());
+        $this->assertEquals('admin@domain.com', $records[2]->getAdminMail());
+        $this->assertEquals(1209600, $records[2]->getExpire());
+        $this->assertEquals(DnsRecordModel::TYPE_SOA, $records[2]->getType());
+        $this->assertEquals(14400, $records[2]->getMinTtl());
     }
 }

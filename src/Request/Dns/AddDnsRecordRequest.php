@@ -57,7 +57,7 @@ class AddDnsRecordRequest extends AbstractRequest
         return [
             'domain' => $this->record->getDomain(),
             'type' => $this->record->getType(),
-            'admin_mail' => $this->record->getAdminEmail(),
+            'admin_mail' => $this->record->getAdminMail(),
             'content' => $this->record->getContent(),
             'priority' => $this->record->getPriority(),
             'weight' => $this->record->getWeight(),
