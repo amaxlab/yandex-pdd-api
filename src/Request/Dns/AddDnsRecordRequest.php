@@ -12,6 +12,7 @@
 namespace AmaxLab\YandexPddApi\Request\Dns;
 
 use AmaxLab\YandexPddApi\Curl\CurlClient;
+use AmaxLab\YandexPddApi\Model\DnsRecordModel;
 use AmaxLab\YandexPddApi\Request\AbstractRequest;
 
 /**
@@ -20,79 +21,16 @@ use AmaxLab\YandexPddApi\Request\AbstractRequest;
 class AddDnsRecordRequest extends AbstractRequest
 {
     /**
-     * @var string
+     * @var DnsRecordModel
      */
-    private $domain;
+    private $record;
 
     /**
-     * @var string
+     * @param DnsRecordModel $record
      */
-    private $type;
-
-    /**
-     * @var string
-     */
-    private $content;
-
-    /**
-     * @var string
-     */
-    private $adminMail;
-
-    /**
-     * @var int
-     */
-    private $priority;
-
-    /**
-     * @var int
-     */
-    private $weight;
-
-    /**
-     * @var string
-     */
-    private $port;
-
-    /**
-     * @var string
-     */
-    private $target;
-
-    /**
-     * @var string
-     */
-    private $subDomain;
-
-    /**
-     * @var int
-     */
-    private $ttl;
-
-    /**
-     * @param string $domain
-     * @param string $type
-     * @param string $content
-     * @param string $adminMail
-     * @param int $priority
-     * @param int $weight
-     * @param string $port
-     * @param string $target
-     * @param string $subDomain
-     * @param int $ttl
-     */
-    public function __construct($domain, $type, $content, $adminMail = '', $priority = 10, $weight = 0, $port = '', $target = '', $subDomain = '@', $ttl = 21600)
+    public function __construct(DnsRecordModel $record)
     {
-        $this->domain = $domain;
-        $this->type = $type;
-        $this->content = $content;
-        $this->adminMail = $adminMail;
-        $this->priority = $priority;
-        $this->weight = $weight;
-        $this->port = $port;
-        $this->target = $target;
-        $this->subDomain = $subDomain;
-        $this->ttl = $ttl;
+        $this->record = $record;
     }
 
     /**
@@ -117,16 +55,16 @@ class AddDnsRecordRequest extends AbstractRequest
     public function getParams()
     {
         return [
-            'domain' => $this->domain,
-            'type' => $this->type,
-            'admin_mail' => $this->adminMail,
-            'content' => $this->content,
-            'priority' => $this->priority,
-            'weight' => $this->weight,
-            'port' => $this->port,
-            'target' => $this->target,
-            'subdomain' => $this->subDomain,
-            'ttl' => $this->ttl,
+            'domain' => $this->record->getDomain(),
+            'type' => $this->record->getType(),
+            'admin_mail' => $this->record->getAdminEmail(),
+            'content' => $this->record->getContent(),
+            'priority' => $this->record->getPriority(),
+            'weight' => $this->record->getWeight(),
+            'port' => $this->record->getPort(),
+            'target' => $this->record->getTarget(),
+            'subdomain' => $this->record->getSubDomain(),
+            'ttl' => $this->record->getTtl(),
         ];
     }
 }
