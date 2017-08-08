@@ -14,6 +14,7 @@ namespace AmaxLab\YandexPddApi\Tests;
 use AmaxLab\YandexPddApi\Manager\DnsManager;
 use AmaxLab\YandexPddApi\Manager\DomainManager;
 use AmaxLab\YandexPddApi\Client;
+use AmaxLab\YandexPddApi\Manager\MailBoxManager;
 
 /**
  * @author Egor Zyuskin <ezyuskin@amaxlab.ru>
@@ -33,5 +34,10 @@ class ClientTest extends \PHPUnit_Framework_TestCase
     public function testGetDnsManager()
     {
         $this->assertEquals(true, (new Client(''))->getDnsManager() instanceof DnsManager);
+    }
+
+    public function testGetMailManager()
+    {
+        $this->assertEquals(true, (new Client(''))->getMailBoxManager() instanceof MailBoxManager);
     }
 }

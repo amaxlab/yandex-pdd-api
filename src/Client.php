@@ -13,6 +13,7 @@ namespace AmaxLab\YandexPddApi;
 
 use AmaxLab\YandexPddApi\Manager\DnsManager;
 use AmaxLab\YandexPddApi\Manager\DomainManager;
+use AmaxLab\YandexPddApi\Manager\MailBoxManager;
 
 /**
  * @author Egor Zyuskin <ezyuskin@amaxlab.ru>
@@ -43,6 +44,11 @@ class Client
      * @var DnsManager
      */
     private $dnsManager;
+
+    /**
+     * @var MailBoxManager
+     */
+    private $mailBoxManager;
 
     /**
      * @param string $token
@@ -78,5 +84,17 @@ class Client
         }
 
         return $this->dnsManager;
+    }
+
+    /**
+     * @return MailBoxManager
+     */
+    public function getMailBoxManager()
+    {
+        if (!$this->mailBoxManager) {
+            $this->mailBoxManager = new MailBoxManager($this->token, $this->isRegistrar, $this->registrarOAuthToken);
+        }
+
+        return $this->mailBoxManager;
     }
 }

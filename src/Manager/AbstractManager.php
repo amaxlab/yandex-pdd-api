@@ -76,6 +76,7 @@ abstract class AbstractManager
     {
         $this->curl = new CurlClient();
         $this->mapper = new JsonMapper();
+        $this->mapper->bStrictNullTypes = false;
 
         $this->token = $token;
         $this->isRegistrar = $isRegistrar;
