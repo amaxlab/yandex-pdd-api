@@ -62,7 +62,6 @@ class AddDnsRecordRequest extends AbstractRequest
             'priority' => $this->record->getPriority(),
             'weight' => $this->record->getWeight(),
             'port' => $this->record->getPort(),
-            'target' => $this->record->getTarget(),
             'subdomain' => $this->record->getSubDomain(),
             'ttl' => $this->record->getTtl(),
         ];

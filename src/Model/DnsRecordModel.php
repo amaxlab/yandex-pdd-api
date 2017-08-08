@@ -112,11 +112,6 @@ class DnsRecordModel
     private $port;
 
     /**
-     * @var string
-     */
-    private $target;
-
-    /**
      * @return int
      */
     public function getRecordId()
@@ -412,26 +407,6 @@ class DnsRecordModel
     public function setPort($port)
     {
         $this->port = $port;
-
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getTarget()
-    {
-        return $this->target;
-    }
-
-    /**
-     * @param string $target
-     *
-     * @return $this
-     */
-    public function setTarget($target)
-    {
-        $this->target = $target;
 
         return $this;
     }
