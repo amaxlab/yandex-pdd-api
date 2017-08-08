@@ -38,7 +38,7 @@ class AddDnsRecordRequest extends AbstractRequest
      */
     public function getUri()
     {
-        return 'dns/add';
+        return '/dns/add';
     }
 
     /**

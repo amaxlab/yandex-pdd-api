@@ -25,14 +25,22 @@ class DmsManagerTest extends \PHPUnit_Framework_TestCase
 
     public function testAddDnsRecord()
     {
-//        $curl = $this->mock('AmaxLab\YandexPddApi\Curl\CurlClientInterface')
-//            ->request((new CurlResponse(200, '{"direction":"asc","on_page":20,"success":"ok","domains":[{"status":"added","from_registrar":"no","name":"test.com","ws_technical":"no","logo_enabled":true,"master_admin":true,"nsdelegated":true,"emails-max-count":1000,"emails-count":0,"dkim-ready":true,"logo_url":"http//logo.url","stage":"added","aliases":["test2.com"]}],"found":1,"total":1,"page":1,"order":"default"}')))
-//            ->new()
-//        ;
-//
-//        $response = (new DnsManager(''))->setCurl($curl)->addRecord('domain.com', 'A', '127.0.0.1');
-//
-//        $this->assertEquals('domain.com', $response->getDomain());
+        $curl = $this->mock('AmaxLab\YandexPddApi\Curl\CurlClientInterface')
+            ->request((new CurlResponse(200, '{"record": {"content": "127.0.0.1", "domain": "domain.com", "fqdn": "www.domain.com", "priority": "", "ttl": 21600, "record_id": 123, "subdomain": "www", "type": "A"}, "domain": "domain.com", "success": "ok"}')))
+            ->new()
+        ;
+
+        $response = (new DnsManager(''))->setCurl($curl)->addRecord((new DnsRecordModel())->setDomain('domain.com')->setSubDomain('www')->setFqdn('www.domain.com')->setType(DnsRecordModel::TYPE_A)->setContent('127.0.0.1'));
+        $record = $response->getRecord();
+
+        $this->assertEquals('domain.com', $response->getDomain());
+        $this->assertEquals(123, $record->getRecordId());
+        $this->assertEquals('domain.com', $record->getDomain());
+        $this->assertEquals('127.0.0.1', $record->getContent());
+        $this->assertEquals('www.domain.com', $record->getFqdn());
+        $this->assertEquals(21600, $record->getTtl());
+        $this->assertEquals('www', $record->getSubDomain());
+        $this->assertEquals(DnsRecordModel::TYPE_A, $record->getType());
     }
 
     public function testGetDnsRecords()
@@ -44,6 +52,7 @@ class DmsManagerTest extends \PHPUnit_Framework_TestCase
 
         $response = (new DnsManager(''))->setCurl($curl)->getRecords('domain.com');
         $records = $response->getRecords();
+
         $this->assertEquals(4, count($records));
         $this->assertEquals('domain.com', $response->getDomain());
         $this->assertEquals(0, $records[0]->getRecordId());
