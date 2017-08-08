@@ -19,9 +19,9 @@ use AmaxLab\YandexPddApi\Model\DnsRecordModel;
 class DnsRecordHelper
 {
     /**
-     * @param $domain
-     * @param $name
-     * @param $ipAddress
+     * @param string $domain
+     * @param string $name
+     * @param string $ipAddress
      * @param int $ttl
      *
      * @return DnsRecordModel
@@ -36,5 +36,45 @@ class DnsRecordHelper
             ->setTtl($ttl)
             ->setType(DnsRecordModel::TYPE_A)
         ;
+    }
+
+    /**
+     * @param string $domain
+     * @param string $name
+     * @param string $ipAddress
+     * @param int $ttl
+     *
+     * @return DnsRecordModel
+     */
+    public static function createAAAARecord($domain, $name, $ipAddress, $ttl = DnsRecordModel::TTL)
+    {
+        return (new DnsRecordModel())
+            ->setDomain($domain)
+            ->setSubDomain($name)
+            ->setFqdn($name.'.'.$domain)
+            ->setContent($ipAddress)
+            ->setTtl($ttl)
+            ->setType(DnsRecordModel::TYPE_AAAA)
+            ;
+    }
+
+    /**
+     * @param string $domain
+     * @param string $name
+     * @param string $alias
+     * @param int $ttl
+     *
+     * @return DnsRecordModel
+     */
+    public static function createCNAMERecord($domain, $name, $alias, $ttl = DnsRecordModel::TTL)
+    {
+        return (new DnsRecordModel())
+            ->setDomain($domain)
+            ->setSubDomain($name)
+            ->setFqdn($name.'.'.$domain)
+            ->setContent($alias)
+            ->setTtl($ttl)
+            ->setType(DnsRecordModel::TYPE_CNAME)
+            ;
     }
 }
