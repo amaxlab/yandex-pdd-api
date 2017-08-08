@@ -19,7 +19,7 @@ use Xpmock\TestCaseTrait;
 /**
  * @author Egor Zyuskin <ezyuskin@amaxlab.ru>
  */
-class DmsManagerTest extends \PHPUnit_Framework_TestCase
+class DnsManagerTest extends \PHPUnit_Framework_TestCase
 {
     use TestCaseTrait;
 

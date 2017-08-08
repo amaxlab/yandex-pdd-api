@@ -34,7 +34,6 @@ class CurlResponse
      */
     public function __construct($statusCode, $content)
     {
-        //print $content;
         $this->statusCode = $statusCode;
         $this->content = $content;
     }
