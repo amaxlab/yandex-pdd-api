@@ -71,6 +71,26 @@ class DmsManagerTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(14400, $records[2]->getMinTtl());
     }
 
+    public function testEditDnsRecord()
+    {
+        $curl = $this->mock('AmaxLab\YandexPddApi\Curl\CurlClientInterface')
+            ->request((new CurlResponse(200, '{"record_id": 123, "record": {"content": "8.8.8.8", "domain": "domain.com", "fqdn": "www.domain.com", "priority": "", "ttl": 21600, "record_id": 123, "operation": "editing", "subdomain": "www", "type": "A"}, "domain": "domain.com", "success": "ok"}')))
+            ->new()
+        ;
+
+        $response = (new DnsManager(''))->setCurl($curl)->editRecord((new DnsRecordModel())->setRecordId(123)->setDomain('domain.com')->setSubDomain('www')->setFqdn('www.domain.com')->setType(DnsRecordModel::TYPE_A)->setContent('8.8.8.8'));
+        $record = $response->getRecord();
+
+        $this->assertEquals('domain.com', $response->getDomain());
+        $this->assertEquals(123, $record->getRecordId());
+        $this->assertEquals('domain.com', $record->getDomain());
+        $this->assertEquals('8.8.8.8', $record->getContent());
+        $this->assertEquals('www.domain.com', $record->getFqdn());
+        $this->assertEquals(21600, $record->getTtl());
+        $this->assertEquals('www', $record->getSubDomain());
+        $this->assertEquals(DnsRecordModel::TYPE_A, $record->getType());
+    }
+
     public function testDeleteDnsRecord()
     {
         $curl = $this->mock('AmaxLab\YandexPddApi\Curl\CurlClientInterface')

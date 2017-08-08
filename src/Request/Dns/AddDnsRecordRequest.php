@@ -23,7 +23,7 @@ class AddDnsRecordRequest extends AbstractRequest
     /**
      * @var DnsRecordModel
      */
-    private $record;
+    protected $record;
 
     /**
      * @param DnsRecordModel $record
@@ -64,6 +64,9 @@ class AddDnsRecordRequest extends AbstractRequest
             'port' => $this->record->getPort(),
             'subdomain' => $this->record->getSubDomain(),
             'ttl' => $this->record->getTtl(),
+            'refresh' => $this->record->getRefresh(),
+            'retry' => $this->record->getRetry(),
+            'expire' => $this->record->getExpire(),
         ];
     }
 }

@@ -14,9 +14,11 @@ namespace AmaxLab\YandexPddApi\Manager;
 use AmaxLab\YandexPddApi\Model\DnsRecordModel;
 use AmaxLab\YandexPddApi\Request\Dns\AddDnsRecordRequest;
 use AmaxLab\YandexPddApi\Request\Dns\DeleteDnsRecordRequest;
+use AmaxLab\YandexPddApi\Request\Dns\EditDnsRecordRequest;
 use AmaxLab\YandexPddApi\Request\Dns\GetDnsRecordsRequest;
 use AmaxLab\YandexPddApi\Response\Dns\AddDnsRecordResponse;
 use AmaxLab\YandexPddApi\Response\Dns\DeleteDnsRecordResponse;
+use AmaxLab\YandexPddApi\Response\Dns\EditDnsRecordResponse;
 use AmaxLab\YandexPddApi\Response\Dns\GetDnsRecordsResponse;
 
 /**
@@ -42,6 +44,16 @@ class DnsManager extends AbstractManager
     public function getRecords($domain)
     {
         return $this->request((new GetDnsRecordsRequest($domain)), 'AmaxLab\YandexPddApi\Response\Dns\GetDnsRecordsResponse');
+    }
+
+    /**
+     * @param DnsRecordModel $record
+     *
+     * @return EditDnsRecordResponse|object
+     */
+    public function editRecord(DnsRecordModel $record)
+    {
+        return $this->request((new EditDnsRecordRequest($record)), 'AmaxLab\YandexPddApi\Response\Dns\EditDnsRecordResponse');
     }
 
     /**
