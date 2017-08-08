@@ -70,4 +70,16 @@ class DmsManagerTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(DnsRecordModel::TYPE_SOA, $records[2]->getType());
         $this->assertEquals(14400, $records[2]->getMinTtl());
     }
+
+    public function testDeleteDnsRecord()
+    {
+        $curl = $this->mock('AmaxLab\YandexPddApi\Curl\CurlClientInterface')
+            ->request((new CurlResponse(200, '{"record_id": 123, "domain": "domain.com", "success": "ok"}')))
+            ->new()
+        ;
+
+        $response = (new DnsManager(''))->setCurl($curl)->deleteRecord('domain.com', 123);
+        $this->assertEquals('domain.com', $response->getDomain());
+        $this->assertEquals(123, $response->getRecordId());
+    }
 }
