@@ -1,18 +1,19 @@
-#YandexPddApi
-
+YandexPddApi
+============
 [![Build Status](https://travis-ci.org/amaxlab/yandex-pdd-api.svg?branch=master)](https://travis-ci.org/amaxlab/yandex-pdd-api)
 [![codecov](https://codecov.io/gh/amaxlab/yandex-pdd-api/branch/master/graph/badge.svg)](https://codecov.io/gh/amaxlab/yandex-pdd-api)
 [![SensioLabsInsight](https://insight.sensiolabs.com/projects/e1841a7f-bde4-483f-82ec-98995e84ea24/mini.png)](https://insight.sensiolabs.com/projects/e1841a7f-bde4-483f-82ec-98995e84ea24)
 
 Client for [yandex pdd api](https://tech.yandex.ru/pdd/)
 
-#Install
+Install
+=======
 ```bash
 composer require amaxlab/yandex-pdd-api
 ```
 
-#Usage
-
+Usage
+=====
 Get admin token for use API [link](https://pddimp.yandex.ru/api2/admin/get_token)
 
 ```php
@@ -24,7 +25,8 @@ $dnsManager = $client->getDnsManager();
 $records = $dnsManager->getRecords('domain.com');
 ```
 
-##Domain manager
+Domain manager
+--------------
 ### [Get domain list](https://tech.yandex.ru/pdd/doc/reference/domain-domains-docpage/)
 ```php
 $domainList = $client->getDomainManager()->getDomainList();
@@ -62,7 +64,8 @@ $response = $client->getDomainManager()->setDomainCountry('domain.com', 'RU');
 ```
 return instance of [SetDomainCountryResponse](https://github.com/amaxlab/yandex-pdd-api/blob/master/src/Response/Domain/SetDomainCountryResponse.php)
 
-##DNS manager
+DNS manager
+-----------
 ### [Add dns record](https://tech.yandex.ru/pdd/doc/reference/dns-add-docpage/)
 Record must be instance [DnsRecordModel](https://github.com/amaxlab/yandex-pdd-api/blob/master/src/Model/DnsRecordModel.php). For creating simple record use [DnsRecordHelper](https://github.com/amaxlab/yandex-pdd-api/blob/master/src/Helper/DnsRecordHelper.php)
 ```php
@@ -92,7 +95,8 @@ $response = $client->getDnsManager()->deleteRecord('domain.com', 123);
 return instance of [DeleteDnsRecordResponse](https://github.com/amaxlab/yandex-pdd-api/blob/master/src/Response/Dns/DeleteDnsRecordResponse.php)
 
 
-#TODO
+TODO
+====
 - ~~Domain manager~~
 - Domain logo manger
 - Mail manager
@@ -102,6 +106,6 @@ return instance of [DeleteDnsRecordResponse](https://github.com/amaxlab/yandex-p
 - DKIM manager
 - Admin manager
 
-#License
-
+License
+=======
 This library is released under the [MIT license](LICENSE)
