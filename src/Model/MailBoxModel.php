@@ -75,6 +75,11 @@ class MailBoxModel
     /**
      * @var string
      */
+    private $hinta;
+
+    /**
+     * @var string
+     */
     private $ready;
 
     /**
@@ -277,6 +282,18 @@ class MailBoxModel
     public function setHintq($hintq)
     {
         $this->hintq = $hintq;
+
+        return $this;
+    }
+
+    /**
+     * @param string $hinta
+     *
+     * @return $this
+     */
+    public function setHinta($hinta)
+    {
+        $this->hinta = $hinta;
 
         return $this;
     }
