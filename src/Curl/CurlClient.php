@@ -66,9 +66,9 @@ class CurlClient implements CurlClientInterface
             curl_setopt($this->resource, CURLOPT_CUSTOMREQUEST, $method);
         }
 
-        $response = new CurlResponse(curl_getinfo($this->resource, CURLINFO_HTTP_CODE), $this->makeRequest());
+        $response = $this->makeRequest();
 
-        return $response;
+        return new CurlResponse(curl_getinfo($this->resource, CURLINFO_HTTP_CODE), $response);
     }
 
     /**
