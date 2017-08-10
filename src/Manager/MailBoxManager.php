@@ -14,13 +14,15 @@ namespace AmaxLab\YandexPddApi\Manager;
 use AmaxLab\YandexPddApi\Model\MailBoxModel;
 use AmaxLab\YandexPddApi\Request\AbstractPaginationRequest;
 use AmaxLab\YandexPddApi\Request\MailBox\AddMailBoxRequest;
+use AmaxLab\YandexPddApi\Request\MailBox\DeleteMailBoxRequest;
 use AmaxLab\YandexPddApi\Request\MailBox\EditMailBoxRequest;
 use AmaxLab\YandexPddApi\Request\MailBox\GetMailBoxListRequest;
-use AmaxLab\YandexPddApi\Request\MailBox\SetPasswordMailBoxRequest;
+use AmaxLab\YandexPddApi\Request\MailBox\GetMailCountInMailBoxRequest;
 use AmaxLab\YandexPddApi\Response\MailBox\AddMailBoxResponse;
+use AmaxLab\YandexPddApi\Response\MailBox\DeleteMailBoxResponse;
 use AmaxLab\YandexPddApi\Response\MailBox\EditMailBoxResponse;
 use AmaxLab\YandexPddApi\Response\MailBox\GetMailBoxListResponse;
-use AmaxLab\YandexPddApi\Response\MailBox\SetPasswordMailBoxResponse;
+use AmaxLab\YandexPddApi\Response\MailBox\GetMailCountInMailBoxListResponse;
 
 /**
  * @author Egor Zyuskin <ezyuskin@amaxlab.ru>
@@ -64,13 +66,23 @@ class MailBoxManager extends AbstractManager
 
     /**
      * @param string $domain
-     * @param string $uid
-     * @param string $password
+     * @param string $login
      *
-     * @return SetPasswordMailBoxResponse|object
+     * @return DeleteMailBoxResponse|object
      */
-    public function setPasswordMailBox($domain, $uid, $password)
+    public function deleteMailBox($domain, $login)
     {
-        return $this->request((new SetPasswordMailBoxRequest($domain, $uid, $password)), 'AmaxLab\YandexPddApi\Response\MailBox\SetPasswordMailBoxResponse');
+        return $this->request((new DeleteMailBoxRequest($domain, $login)), 'AmaxLab\YandexPddApi\Response\MailBox\DeleteMailBoxResponse');
+    }
+
+    /**
+     * @param string $domain
+     * @param string $login
+     *
+     * @return GetMailCountInMailBoxListResponse|object
+     */
+    public function getMailCountInMailBox($domain, $login)
+    {
+        return $this->request((new GetMailCountInMailBoxRequest($domain, $login)), 'AmaxLab\YandexPddApi\Response\MailBox\GetMailCountInMailBoxListResponse');
     }
 }
