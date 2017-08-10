@@ -6,6 +6,11 @@ YandexPddApi
 
 Client for [yandex pdd api](https://tech.yandex.ru/pdd/)
 
+Requires
+========
+- php >= 5.4
+- [netresearch/jsonmapper](https://github.com/cweiske/jsonmapper) >= 1.2
+
 Install
 =======
 ```bash
@@ -33,10 +38,10 @@ Documentation
 TODO
 ====
 - ~~Domain manager~~
+- ~~DNS manager~~
 - Domain logo manger
 - Mail manager
 - MailList manager
-- ~~DNS manager~~
 - Mail import
 - DKIM manager
 - Admin manager
