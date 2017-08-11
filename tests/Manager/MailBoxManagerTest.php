@@ -72,13 +72,16 @@ class MailBoxManagerTest extends \PHPUnit_Framework_TestCase
     public function testEditMailBox()
     {
         $curl = $this->mock('AmaxLab\YandexPddApi\Curl\CurlClientInterface')
-            ->request((new CurlResponse(200, '{"account": {"uid": 123, "iname": "", "sex": null, "ready": "no", "hintq": "", "aliases": [], "enabled": "yes", "maillist": "no", "fname": "", "birth_date": null, "login": "test@amaxlab.ru", "fio": ""}, "success": "ok", "login": "test@domain.com", "uid": 123, "domain": "domain.com"}')))
+            ->request((new CurlResponse(200, '{"account": {"uid": 123, "iname": "", "sex": null, "ready": "no", "hintq": "", "aliases": [], "enabled": "yes", "maillist": "no", "fname": "", "birth_date": null, "login": "test@domain.com", "fio": ""}, "success": "ok", "login": "test@domain.com", "uid": 123, "domain": "domain.com"}')))
             ->new()
         ;
 
         $response = (new MailBoxManager(''))->setCurl($curl)->editMailBox('domain.com', (new MailBoxModel())->setUid(123)->setPassword('secret')->setHinta('answer'));
 
         $this->assertEquals('domain.com', $response->getDomain());
+        $this->assertEquals(123, $response->getUid());
+        $this->assertEquals(123, $response->getAccount()->getUid());
+        $this->assertEquals('test@domain.com', $response->getLogin());
     }
 
     public function testDeleteMailBox()
