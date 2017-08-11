@@ -2,7 +2,7 @@ YandexPddApi
 ============
 [![Build Status](https://travis-ci.org/amaxlab/yandex-pdd-api.svg?branch=master)](https://travis-ci.org/amaxlab/yandex-pdd-api)
 [![codecov](https://codecov.io/gh/amaxlab/yandex-pdd-api/branch/master/graph/badge.svg)](https://codecov.io/gh/amaxlab/yandex-pdd-api)
-[![SensioLabsInsight](https://insight.sensiolabs.com/projects/e1841a7f-bde4-483f-82ec-98995e84ea24/mini.png)](https://insight.sensiolabs.com/projects/e1841a7f-bde4-483f-82ec-98995e84ea24)
+[![SensioLabsInsight](https://insight.sensiolabs.com/projects/caa21092-701b-4aa9-a992-48ae94ec58bc/mini.png)](https://insight.sensiolabs.com/projects/caa21092-701b-4aa9-a992-48ae94ec58bc)
 
 Client for [yandex pdd api](https://tech.yandex.ru/pdd/)
 
