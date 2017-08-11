@@ -88,6 +88,11 @@ class MailBoxModel
     private $mailList;
 
     /**
+     * @var string
+     */
+    private $password;
+
+    /**
      * @return string
      */
     public function getLogin()
@@ -287,6 +292,14 @@ class MailBoxModel
     }
 
     /**
+     * @return string
+     */
+    public function getHinta()
+    {
+        return $this->hinta;
+    }
+
+    /**
      * @param string $hinta
      *
      * @return $this
@@ -334,6 +347,26 @@ class MailBoxModel
     public function setMailList($mailList)
     {
         $this->mailList = $mailList;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getPassword()
+    {
+        return $this->password;
+    }
+
+    /**
+     * @param string $password
+     *
+     * @return $this
+     */
+    public function setPassword($password)
+    {
+        $this->password = $password;
 
         return $this;
     }

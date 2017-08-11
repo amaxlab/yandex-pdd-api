@@ -61,7 +61,7 @@ class EditMailBoxRequest extends AbstractRequest
      */
     public function getParams()
     {
-        return [
+        $record = [
             'domain' => $this->domain,
             'login' => $this->mailBox->getLogin(),
             'uid' => $this->mailBox->getUid(),
@@ -73,5 +73,11 @@ class EditMailBoxRequest extends AbstractRequest
             'hintq' => $this->mailBox->getHintq(),
             'hinta' => $this->mailBox->getHinta(),
         ];
+
+        if ($this->mailBox->getPassword()) {
+            $record['password'] = $this->mailBox->getPassword();
+        }
+
+        return $record;
     }
 }

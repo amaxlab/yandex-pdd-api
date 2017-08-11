@@ -71,13 +71,42 @@ class MailBoxManagerTest extends \PHPUnit_Framework_TestCase
 
     public function testEditMailBox()
     {
+        $curl = $this->mock('AmaxLab\YandexPddApi\Curl\CurlClientInterface')
+            ->request((new CurlResponse(200, '{"account": {"uid": 123, "iname": "", "sex": null, "ready": "no", "hintq": "", "aliases": [], "enabled": "yes", "maillist": "no", "fname": "", "birth_date": null, "login": "test@amaxlab.ru", "fio": ""}, "success": "ok", "login": "test@domain.com", "uid": 123, "domain": "domain.com"}')))
+            ->new()
+        ;
+
+        $response = (new MailBoxManager(''))->setCurl($curl)->editMailBox('domain.com', (new MailBoxModel())->setUid(123)->setPassword('secret')->setHinta('answer'));
+
+        $this->assertEquals('domain.com', $response->getDomain());
     }
 
     public function testDeleteMailBox()
     {
+        $curl = $this->mock('AmaxLab\YandexPddApi\Curl\CurlClientInterface')
+            ->request((new CurlResponse(200, '{"login": "test@domain.com", "domain": "domain.com", "success": "ok"}')))
+            ->new()
+        ;
+
+        $response = (new MailBoxManager(''))->setCurl($curl)->deleteMailBox('domain.com', 'test@domain.com');
+
+        $this->assertEquals('domain.com', $response->getDomain());
+        $this->assertEquals('test@domain.com', $response->getLogin());
     }
 
-    public function testGetMailCount()
+    public function testGetMailCountInMailBox()
     {
+        $curl = $this->mock('AmaxLab\YandexPddApi\Curl\CurlClientInterface')
+            ->request((new CurlResponse(200, '{"success": "ok", "login": "test@domain.com", "uid": 123, "domain": "domain.com", "counters": {"new": 1, "unread": 2}}')))
+            ->new()
+        ;
+
+        $response = (new MailBoxManager(''))->setCurl($curl)->getMailCountInMailBox('domain.com', 'test@domain.com');
+
+        $this->assertEquals('domain.com', $response->getDomain());
+        $this->assertEquals('test@domain.com', $response->getLogin());
+        $this->assertEquals('123', $response->getUid());
+        $this->assertEquals(1, $response->getCounters()->getNew());
+        $this->assertEquals(2, $response->getCounters()->getUnread());
     }
 }

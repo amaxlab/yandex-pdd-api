@@ -12,12 +12,13 @@
 namespace AmaxLab\YandexPddApi\Request\MailBox;
 
 use AmaxLab\YandexPddApi\Curl\CurlClient;
+use AmaxLab\YandexPddApi\Model\MailBoxModel;
 use AmaxLab\YandexPddApi\Request\AbstractRequest;
 
 /**
  * @author Egor Zyuskin <ezyuskin@amaxlab.ru>
  */
-class SetPasswordMailBoxRequest extends AbstractRequest
+class GetMailCountInMailBoxRequest extends AbstractRequest
 {
     /**
      * @var string
@@ -27,23 +28,16 @@ class SetPasswordMailBoxRequest extends AbstractRequest
     /**
      * @var string
      */
-    private $uid;
-
-    /**
-     * @var string
-     */
-    private $password;
+    private $login;
 
     /**
      * @param string $domain
-     * @param string $uid
-     * @param string $password
+     * @param string $login
      */
-    public function __construct($domain, $uid, $password)
+    public function __construct($domain, $login)
     {
         $this->domain = $domain;
-        $this->uid = $uid;
-        $this->password = $password;
+        $this->login = $login;
     }
 
     /**
@@ -51,7 +45,7 @@ class SetPasswordMailBoxRequest extends AbstractRequest
      */
     public function getUri()
     {
-        return '/email/edit';
+        return '/email/counters';
     }
 
     /**
@@ -59,7 +53,7 @@ class SetPasswordMailBoxRequest extends AbstractRequest
      */
     public function getMethod()
     {
-        return CurlClient::METHOD_POST;
+        return CurlClient::METHOD_GET;
     }
 
     /**
@@ -69,8 +63,7 @@ class SetPasswordMailBoxRequest extends AbstractRequest
     {
         return [
             'domain' => $this->domain,
-            'uid' => $this->uid,
-            'password' => $this->password,
+            'login' => $this->login,
         ];
     }
 }

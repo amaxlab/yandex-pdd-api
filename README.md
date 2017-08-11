@@ -34,15 +34,16 @@ Documentation
 =============
 - [DomainManager](https://github.com/amaxlab/yandex-pdd-api/blob/master/doc/DomainManager.md)
 - [DnsManager](https://github.com/amaxlab/yandex-pdd-api/blob/master/doc/DnsManager.md)
+- [MailBobManager](https://github.com/amaxlab/yandex-pdd-api/blob/master/doc/MailBoxManager.md)
 
 TODO
 ====
 - ~~Domain manager~~
 - ~~DNS manager~~
+- ~~MailBox manager~~
 - Domain logo manger
-- Mail manager
 - MailList manager
-- Mail import
+- MailImport manager
 - DKIM manager
 - Admin manager
 
