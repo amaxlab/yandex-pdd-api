@@ -34,7 +34,7 @@ Documentation
 =============
 - [DomainManager](https://github.com/amaxlab/yandex-pdd-api/blob/master/doc/DomainManager.md)
 - [DnsManager](https://github.com/amaxlab/yandex-pdd-api/blob/master/doc/DnsManager.md)
-- [MailBobManager](https://github.com/amaxlab/yandex-pdd-api/blob/master/doc/MailBoxManager.md)
+- [MailBoxManager](https://github.com/amaxlab/yandex-pdd-api/blob/master/doc/MailBoxManager.md)
 
 TODO
 ====
